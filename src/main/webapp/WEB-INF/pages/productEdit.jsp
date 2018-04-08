@@ -11,6 +11,7 @@
                     <form:form method="post" action="product-save" enctype="multipart/form-data" modelAttribute="product">
                         <fieldset>
                             <legend>${mode} Product</legend>
+                            <form:input path="id" id="idInput" type="hidden"/>
                             <div class="form-group">
                                 <label for="nameInput" class="col-lg-3 control-label">Name</label>
                                 <div class="col-lg-9">
@@ -29,8 +30,13 @@
                                 <label for="priceInput" class="col-lg-3 control-label">Image</label>
                                 <input type="file" class="btn" name="fileUpload"/>
                             </div>
-                            <div class="col-lg-9">
-                                <input type="submit" value="Submit" class="btn btn-primary"/>
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <a class="btn btn-primary" href="/product-list" role="button">Back</a>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="submit" value="Submit" class="btn btn-primary"/>
+                                </div>
                             </div>
                         </fieldset>
                     </form:form>

@@ -5,13 +5,13 @@
 	<div class="container">
 		<div class="jumbotron">
 			<div>
-				<h1>Welcome to Store Finder PH© ${email}!</h1>
+				<h1>Welcome to Store Finder PHï¿½ ${email}!</h1>
 				<p>To fill this out with numerous promotions that are lined
 				up with introducing products from different stores.</p>
 			</div>
 
-			<a class="btn btn-primary" href="signup">Signup » </a> <a
-				class="btn btn-primary" href="login">Login » </a>
+			<a class="btn btn-primary" href="signup">Signup ï¿½ </a> <a
+				class="btn btn-primary" href="login">Login ï¿½ </a>
 		</div>
 
 		<div class="row">
@@ -39,7 +39,7 @@
 	    </a>
 	  </div>
 	</c:forEach>				  
-				  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+				  <p><a class="btn btn-primary btn-lg" href="/product-list" role="button">Product List</a></p>
 				</div>
 			</div>
 		</div>

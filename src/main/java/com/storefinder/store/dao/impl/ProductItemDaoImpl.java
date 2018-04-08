@@ -18,8 +18,18 @@ import java.util.List;
 public class ProductItemDaoImpl extends AbstractDao<ProductItem, Long> implements ProductItemDao {
 
     @Override
-    public ProductItem saveProduct(ProductItem product) {
-        return save(product, ProductItem.class);
+    public void saveProduct(ProductItem product) {
+        save(product);
+    }
+
+    @Override
+    public ProductItem getProduct(Long productId) {
+        return get(ProductItem.class, productId);
+    }
+
+    @Override
+    public void deleteProduct(Long productId) {
+        deleteById(ProductItem.class, productId);
     }
 
     @Override

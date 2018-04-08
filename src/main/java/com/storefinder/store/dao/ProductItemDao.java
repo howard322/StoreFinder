@@ -8,7 +8,11 @@ import java.util.List;
 
 public interface ProductItemDao {
 
-    ProductItem saveProduct(ProductItem product);
+    void saveProduct(ProductItem product);
+
+    ProductItem getProduct(Long productId);
+
+    void deleteProduct(Long productId);
 
     List<ProductItemView> findProductsByUsername(String username);
 }
