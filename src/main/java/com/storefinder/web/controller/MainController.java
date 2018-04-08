@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.storefinder.store.dao.StoreDaoImpl;
+import com.storefinder.store.dao.impl.StoreDaoImpl;
 import com.storefinder.users.dao.UserDaoImpl;
 import com.storefinder.users.model.UserInfo;
 
@@ -103,7 +103,7 @@ public class MainController {
 		} else if (exception instanceof LockedException) {
 			error = exception.getMessage();
 		} else {
-			error = "Invalid username and password!";
+			error = exception.getLocalizedMessage();
 		}
 
 		return error;
@@ -127,7 +127,6 @@ public class MainController {
 
 		model.setViewName("403");
 		return model;
-
 	}
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)

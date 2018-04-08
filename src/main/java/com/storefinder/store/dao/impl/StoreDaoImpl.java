@@ -1,4 +1,4 @@
-package com.storefinder.store.dao;
+package com.storefinder.store.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.storefinder.store.dao.StoreDao;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,7 +21,7 @@ import com.storefinder.store.model.City;
 import com.storefinder.store.model.Product;
 
 @Repository
-public class StoreDaoImpl implements StoreDao{
+public class StoreDaoImpl implements StoreDao {
 	@Autowired
 	BasicDataSource dataSource;
 	

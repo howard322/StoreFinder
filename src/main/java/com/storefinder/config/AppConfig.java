@@ -1,7 +1,5 @@
 package com.storefinder.config;
 
-import java.util.Properties;
-
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
@@ -11,9 +9,12 @@ import org.springframework.context.annotation.Import;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+
+import java.util.Properties;
 
 @EnableWebMvc
 @Configuration
@@ -50,11 +51,24 @@ public class AppConfig {
 		ds.setUsername("root");
 		return ds;
 	}
-	
+
 	@Bean
-    public HibernateTransactionManager txManager() {
-        return new HibernateTransactionManager(sessionFactory());
-    }
+	public HibernateTransactionManager transactionManager() {
+
+		HibernateTransactionManager txManager = new HibernateTransactionManager();
+		txManager.setSessionFactory(sessionFactory());
+
+		return txManager;
+	}
+
+	@Bean
+	public CommonsMultipartResolver multipartResolver() {
+		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+		resolver.setMaxUploadSize(20971520); // 20MB
+		resolver.setMaxInMemorySize(1048576); // 1MB
+
+		return resolver;
+	}
 		
 	@Bean
 	public InternalResourceViewResolver viewResolver() {

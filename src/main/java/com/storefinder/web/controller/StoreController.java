@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.storefinder.store.dao.StoreDaoImpl;
+import com.storefinder.store.dao.impl.StoreDaoImpl;
 import com.storefinder.store.model.Checkout;
 import com.storefinder.store.model.Product;
 import com.storefinder.users.dao.UserDaoImpl;
