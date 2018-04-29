@@ -1,6 +1,8 @@
 package com.storefinder.web.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,6 +11,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -39,6 +42,12 @@ public class MainController {
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();
 			UserInfo user = userDao.getUser(userDetail.getUsername());
+			List<String> roles = new ArrayList<String>();
+			for (GrantedAuthority authority : auth.getAuthorities()) {
+				roles.add(authority.getAuthority());
+			}
+
+			model.addObject("isAdmin", roles.contains("ROLE_ADMIN"));
 			model.addObject("email", user.getEmail());
 			model.setViewName("hello");
 			return model;
@@ -72,8 +81,13 @@ public class MainController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();
-			System.out.println(userDetail);
 			UserInfo user = userDao.getUser(userDetail.getUsername());
+			List<String> roles = new ArrayList<String>();
+			for (GrantedAuthority authority : auth.getAuthorities()) {
+				roles.add(authority.getAuthority());
+			}
+
+			model.addObject("isAdmin", roles.contains("ROLE_ADMIN"));
 			model.addObject("email", user.getEmail());
 			model.setViewName("hello");
 			return model;

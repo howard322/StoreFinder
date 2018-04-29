@@ -39,7 +39,16 @@
 	    </a>
 	  </div>
 	</c:forEach>				  
-				  <p><a class="btn btn-primary btn-lg" href="/product-list" role="button">Product List</a></p>
+				  <p>
+					  <c:choose>
+					  	<c:when test="${isAdmin}">
+							<a class="btn btn-primary btn-lg" href="/product-management" role="button">Product Management</a>
+						</c:when>
+						<c:otherwise>
+							<a class="btn btn-primary btn-lg" href="/product-list" role="button">Product List</a>
+						</c:otherwise>
+					  </c:choose>
+				  </p>
 				</div>
 			</div>
 		</div>

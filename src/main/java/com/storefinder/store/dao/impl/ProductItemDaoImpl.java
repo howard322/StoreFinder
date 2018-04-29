@@ -5,7 +5,6 @@ import com.storefinder.commons.dao.AbstractDao;
 import com.storefinder.store.dao.ProductItemDao;
 import com.storefinder.store.dto.ProductItemView;
 import com.storefinder.store.model.ProductItem;
-import com.storefinder.util.ImageUtil;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +32,20 @@ public class ProductItemDaoImpl extends AbstractDao<ProductItem, Long> implement
     }
 
     @Override
+    public List<ProductItemView> findAllProducts() {
+        Query query = getCurrentSession().createQuery("from ProductItem item");
+
+        List<ProductItem> items = (List<ProductItem>) query.list();
+        List<ProductItemView> results = new ArrayList<ProductItemView>();
+
+        for (ProductItem item : items) {
+            results.add(new ProductItemView(item));
+        }
+
+        return results;
+    }
+
+    @Override
     public List<ProductItemView> findProductsByUsername(String username) {
         Query query = getCurrentSession().createQuery("from ProductItem item where item.username = :username")
                 .setString("username", username);
@@ -41,10 +54,7 @@ public class ProductItemDaoImpl extends AbstractDao<ProductItem, Long> implement
         List<ProductItemView> results = new ArrayList<ProductItemView>();
 
         for (ProductItem item : items) {
-            ProductItemView itemView = new ProductItemView(item.getId(), item.getName(), item.getPrice(),
-                    ImageUtil.getImageAsString(item.getContent()));
-
-            results.add(itemView);
+            results.add(new ProductItemView(item));
         }
 
         return results;
