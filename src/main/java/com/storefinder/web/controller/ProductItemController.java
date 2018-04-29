@@ -3,8 +3,10 @@ package com.storefinder.web.controller;
 
 import com.storefinder.store.constant.ProductStatus;
 import com.storefinder.store.dao.ProductItemDao;
+import com.storefinder.store.dao.StoreDao;
 import com.storefinder.store.dto.ProductItemView;
 import com.storefinder.store.model.ProductItem;
+import com.storefinder.store.model.Store;
 import com.storefinder.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,11 +29,14 @@ public class ProductItemController {
     @Autowired
     private ProductItemDao productItemDao;
 
+    @Autowired
+    private StoreDao storeDao;
+
     private static final String PRODUCT_LIST_PAGE = "productList";
     private static final String PRODUCT_EDIT_PAGE = "productEdit";
 
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_SELLER')")
     @RequestMapping(value = "/product-list", method = RequestMethod.GET)
     public ModelAndView loadTest() {
         String username = SecurityUtil.getLoggedInUsername();
@@ -44,7 +49,7 @@ public class ProductItemController {
         return mav;
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_SELLER')")
     @RequestMapping(value = "/product-create", method = RequestMethod.GET)
     public ModelAndView createProduct() {
         ModelAndView mav = new ModelAndView(PRODUCT_EDIT_PAGE);
@@ -54,7 +59,7 @@ public class ProductItemController {
         return mav;
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_SELLER')")
     @RequestMapping(value = "/product-update", method = RequestMethod.GET)
     public ModelAndView updateProduct(@RequestParam(value = "id") Long id) {
         ModelAndView mav = new ModelAndView(PRODUCT_EDIT_PAGE);
@@ -66,6 +71,7 @@ public class ProductItemController {
         return mav;
     }
 
+    @PreAuthorize("hasRole('ROLE_SELLER')")
     @RequestMapping(value = "/product-delete", method = RequestMethod.POST)
     public ModelAndView deleteProduct(@RequestParam Long id) {
         String username = SecurityUtil.getLoggedInUsername();
@@ -81,6 +87,7 @@ public class ProductItemController {
     }
 
 
+    @PreAuthorize("hasRole('ROLE_SELLER')")
     @RequestMapping(value = "/product-save", method = RequestMethod.POST)
     public ModelAndView handleFileUpload(@ModelAttribute("product") ProductItem product,
                                          @RequestParam CommonsMultipartFile[] fileUpload) throws Exception {
@@ -96,6 +103,9 @@ public class ProductItemController {
             product.setContent(file.getBytes());
             product.setUsername(username);
             product.setStatus(ProductStatus.NEW);
+
+            Store store = storeDao.findByName(username);
+            product.setStore(store);
 
             productItemDao.saveProduct(product);
 

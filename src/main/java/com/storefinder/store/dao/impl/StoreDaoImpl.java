@@ -11,20 +11,26 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.storefinder.commons.dao.AbstractDao;
 import com.storefinder.store.dao.StoreDao;
+import com.storefinder.store.model.Store;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.storefinder.store.model.Checkout;
 import com.storefinder.store.model.City;
 import com.storefinder.store.model.Product;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class StoreDaoImpl implements StoreDao {
+@Transactional
+public class StoreDaoImpl extends AbstractDao<Store, Long> implements StoreDao {
+
 	@Autowired
-	BasicDataSource dataSource;
-	
+	private BasicDataSource dataSource;
+
 	@Override
 	public ArrayList<Product> getAllProducts() throws SQLException {
 		ArrayList<Product> products = new ArrayList<Product>();
@@ -156,6 +162,14 @@ public class StoreDaoImpl implements StoreDao {
         stmt.close();
         connectionSource.close();
 
+	}
+
+	@Override
+	public Store findByName(String name) {
+		Query query = getCurrentSession().createQuery("from Store store where store.name = :name")
+				.setString("name", name);
+
+		return (Store) query.uniqueResult();
 	}
 
 }

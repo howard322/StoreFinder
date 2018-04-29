@@ -45,7 +45,7 @@ public class UserDaoImpl implements UserDao {
 		Connection connectionSource = dataSource.getConnection();
 		PreparedStatement stmt = null;
 
-		stmt = connectionSource.prepareStatement("SELECT * FROM user_info where username = ?");
+		stmt = connectionSource.prepareStatement("SELECT username, email, name, city_id, type  FROM user_info where username = ?");
 		stmt.setString(1, username);
 		
 		UserInfo user = new UserInfo();
@@ -68,6 +68,8 @@ public class UserDaoImpl implements UserDao {
 		Connection connectionSource = dataSource.getConnection();
 		PreparedStatement stmt = null;
 
+		String role = user.gettype().equals("BUYER") ? "ROLE_BUYER" : "ROLE_SELLER";
+
 		stmt = connectionSource.prepareStatement("INSERT INTO users (username, password, enabled) values (?, ?, ?)");
 		stmt.setString(1, user.getUsername());
 		stmt.setString(2, encoder.encode(user.getPassword()));
@@ -76,7 +78,7 @@ public class UserDaoImpl implements UserDao {
         
 		stmt = connectionSource.prepareStatement("INSERT INTO user_roles (username, role) values (?, ?)");
 		stmt.setString(1, user.getUsername());
-		stmt.setString(2, "ROLE_USER");
+		stmt.setString(2, role);
         stmt.execute();
         
         // INSERT NEW FIELDS tapos ?
@@ -88,7 +90,15 @@ public class UserDaoImpl implements UserDao {
 		stmt.setString(5, user.gettype());
 		// insert getBuyer and seller
         stmt.execute();
-        
+
+        if (user.gettype().equals("SELLER")) {
+			stmt = connectionSource.prepareStatement("INSERT INTO store (name, credit_payable, loc_id) values (?, ?, ?)");
+			stmt.setString(1, user.getUsername());
+			stmt.setString(2, "Y");
+			stmt.setLong(3, Long.valueOf(user.getCity()));
+			stmt.execute();
+		}
+
         stmt.close();
         connectionSource.close();
 	}

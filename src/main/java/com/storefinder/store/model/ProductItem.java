@@ -9,7 +9,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -40,6 +42,10 @@ public class ProductItem {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private ProductStatus status;
+
+    @ManyToOne
+    @JoinColumn(name = "store_id", referencedColumnName = "store_id")
+    private Store store;
 
     public Long getId() {
         return id;
@@ -95,5 +101,13 @@ public class ProductItem {
 
     public void setStatus(ProductStatus status) {
         this.status = status;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
     }
 }

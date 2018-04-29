@@ -28,11 +28,12 @@ import com.storefinder.users.model.UserInfo;
 
 @Controller
 public class MainController {
+
 	@Autowired
 	private UserDaoImpl userDao;
 	@Autowired
 	private StoreDaoImpl storeDao;
-	
+
 	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
 	public ModelAndView defaultPage() throws SQLException {
 		
@@ -47,12 +48,11 @@ public class MainController {
 				roles.add(authority.getAuthority());
 			}
 
-			model.addObject("isAdmin", roles.contains("ROLE_ADMIN"));
+			addRoleProps(model, auth);
 			model.addObject("email", user.getEmail());
 			model.setViewName("hello");
 			return model;
 		}
-		model.addObject("products", storeDao.getAllProducts());
 		model.addObject("title", "Spring Security + Hibernate Example");
 		model.addObject("message", "This is default page!");
 		model.setViewName("hello");
@@ -82,12 +82,8 @@ public class MainController {
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();
 			UserInfo user = userDao.getUser(userDetail.getUsername());
-			List<String> roles = new ArrayList<String>();
-			for (GrantedAuthority authority : auth.getAuthorities()) {
-				roles.add(authority.getAuthority());
-			}
+			addRoleProps(model, auth);
 
-			model.addObject("isAdmin", roles.contains("ROLE_ADMIN"));
 			model.addObject("email", user.getEmail());
 			model.setViewName("hello");
 			return model;
@@ -155,6 +151,8 @@ public class MainController {
 			System.out.println(userDetail);
 			model.addObject("username", userDetail.getUsername());
 			model.addObject("role", userDetail.getAuthorities());
+
+			addRoleProps(model, auth);
 			model.setViewName("hello");
 			return model;
 		}
@@ -187,6 +185,17 @@ public class MainController {
 			return "registerSuccess";
 		}
 
+	}
+
+	private void addRoleProps(ModelAndView model, Authentication auth) {
+		List<String> roles = new ArrayList<String>();
+		for (GrantedAuthority authority : auth.getAuthorities()) {
+			roles.add(authority.getAuthority());
+		}
+
+		model.addObject("isAdmin", roles.contains("ROLE_ADMIN"));
+		model.addObject("isBuyer", roles.contains("ROLE_BUYER"));
+		model.addObject("isSeller", roles.contains("ROLE_SELLER"));
 	}
 
 }

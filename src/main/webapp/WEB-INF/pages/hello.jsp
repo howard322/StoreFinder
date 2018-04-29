@@ -31,22 +31,15 @@
 			</div>
 		  	<div class="col-sm-6">
 				<div class="jumbotron mp">
-				  <h4>Featured Products</h4>
-	<c:forEach items="${products}" var="product">
-	  <div class="col-xs-6 col-md-3">
-	    <a href="#" class="thumbnail">
-	      <img style="height: 80px; width: 80px" src="assets/img/products/${product.name}.jpg" alt="${product.name}">
-	    </a>
-	  </div>
-	</c:forEach>				  
+				  <h4>Products</h4>
 				  <p>
 					  <c:choose>
 					  	<c:when test="${isAdmin}">
 							<a class="btn btn-primary btn-lg" href="/product-management" role="button">Product Management</a>
 						</c:when>
-						<c:otherwise>
+						<c:when test="${isSeller}">
 							<a class="btn btn-primary btn-lg" href="/product-list" role="button">Product List</a>
-						</c:otherwise>
+						</c:when>
 					  </c:choose>
 				  </p>
 				</div>
