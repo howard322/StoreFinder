@@ -140,6 +140,7 @@ public class MainController {
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();
 			System.out.println(userDetail);
 			model.addObject("username", userDetail.getUsername());
+			model.addObject("role", userDetail.getAuthorities());
 			model.setViewName("hello");
 			return model;
 		}

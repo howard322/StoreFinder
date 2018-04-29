@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.storefinder.store.dao.ProductItemDao;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +36,10 @@ public class StoreController {
 	private StoreDaoImpl storeDao;
 	@Autowired
 	private UserDaoImpl userDao;
-	   
+
+	@Autowired
+	private ProductItemDao productItemDao;
+
 	@RequestMapping(value = "/shop", method = RequestMethod.GET)
 	public ModelAndView shop(@RequestParam(value = "items", required = false) String items,
 			HttpServletRequest request) throws SQLException, JSONException {
