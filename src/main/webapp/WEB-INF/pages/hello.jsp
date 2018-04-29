@@ -22,13 +22,16 @@
 				  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
 				</div>
 			</div>
-		  	<div class="col-sm-3">
-				<div class="jumbotron mp">
-				  <h4>Grocery!</h4>
-				  <p>...</p>
-				  <p><a class="btn btn-primary btn-lg" href="shop" role="button">Learn more</a></p>
+
+			<c:if test="${isBuyer}">
+				<div class="col-sm-3">
+					<div class="jumbotron mp">
+					  <h4>Grocery!</h4>
+					  <p>...</p>
+					  <p><a class="btn btn-primary btn-lg" href="shop" role="button">Learn more</a></p>
+					</div>
 				</div>
-			</div>
+			</c:if>
 		  	<div class="col-sm-6">
 				<div class="jumbotron mp">
 				  <h4>Products</h4>

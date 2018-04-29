@@ -172,4 +172,13 @@ public class StoreDaoImpl extends AbstractDao<Store, Long> implements StoreDao {
 		return (Store) query.uniqueResult();
 	}
 
+	@Override
+	protected String getEntityName() {
+		return "Store";
+	}
+
+	@Override
+	protected Class getAssignedClass() {
+		return Store.class;
+	}
 }

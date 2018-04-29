@@ -2,8 +2,9 @@ package com.storefinder.web.controller;
 
 
 import com.storefinder.store.constant.ProductStatus;
-import com.storefinder.store.dao.ProductItemDao;
 import com.storefinder.store.dao.StoreDao;
+import com.storefinder.store.dao.impl.ProductItemDaoImpl;
+import com.storefinder.store.dao.impl.ProductRefDao;
 import com.storefinder.store.dto.ProductItemView;
 import com.storefinder.store.model.ProductItem;
 import com.storefinder.store.model.Store;
@@ -27,7 +28,10 @@ public class ProductItemController {
     }
 
     @Autowired
-    private ProductItemDao productItemDao;
+    private ProductItemDaoImpl productItemDao;
+
+    @Autowired
+    private ProductRefDao productRefDao;
 
     @Autowired
     private StoreDao storeDao;
@@ -53,6 +57,8 @@ public class ProductItemController {
     @RequestMapping(value = "/product-create", method = RequestMethod.GET)
     public ModelAndView createProduct() {
         ModelAndView mav = new ModelAndView(PRODUCT_EDIT_PAGE);
+
+        mav.addObject("productRefs", productRefDao.getProductRefOpts());
         mav.addObject("mode", "Add");
         mav.addObject("product", new ProductItem());
 
@@ -63,8 +69,9 @@ public class ProductItemController {
     @RequestMapping(value = "/product-update", method = RequestMethod.GET)
     public ModelAndView updateProduct(@RequestParam(value = "id") Long id) {
         ModelAndView mav = new ModelAndView(PRODUCT_EDIT_PAGE);
-        ProductItem item = productItemDao.getProduct(id);
+        ProductItem item = productItemDao.get(id);
 
+        mav.addObject("productRefs", productRefDao.getProductRefOpts());
         mav.addObject("mode", "Edit");
         mav.addObject("product", item);
 
@@ -77,7 +84,7 @@ public class ProductItemController {
         String username = SecurityUtil.getLoggedInUsername();
         ModelAndView mav = new ModelAndView(PRODUCT_LIST_PAGE);
 
-        productItemDao.deleteProduct(id);
+        productItemDao.deleteById(id);
 
         List<ProductItemView> productItems = productItemDao.findProductsByUsername(username);
         mav.addObject("products", productItems);
@@ -107,7 +114,7 @@ public class ProductItemController {
             Store store = storeDao.findByName(username);
             product.setStore(store);
 
-            productItemDao.saveProduct(product);
+            productItemDao.save(product);
 
             List<ProductItemView> productItems = productItemDao.findProductsByUsername(username);
             mav.addObject("products", productItems);

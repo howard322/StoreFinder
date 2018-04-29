@@ -18,7 +18,6 @@
                                     <form:input path="name" class="form-control" id="nameInput" placeholder="Name" maxlength="15"/>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label for="priceInput" class="col-lg-3 control-label">Price</label>
                                 <div class="col-lg-9">
@@ -29,6 +28,14 @@
                             <div>
                                 <label for="priceInput" class="col-lg-3 control-label">Image</label>
                                 <input type="file" class="btn" name="fileUpload"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="productRefInput" class="col-lg-3 control-label">Type</label>
+                                <div class="col-lg-9" style="margin-bottom: 10px">
+                                    <form:select path="productRefId" id="productRefInput">
+                                        <form:options items="${productRefs}" />
+                                    </form:select>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-2">

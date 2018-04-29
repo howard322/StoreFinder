@@ -67,14 +67,23 @@ CREATE TABLE store (
 ALTER TABLE store
   ADD CONSTRAINT fk_store_loc FOREIGN KEY (loc_id) REFERENCES locations (loc_id);
 
+CREATE TABLE product_ref (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL UNIQUE,
+  description VARCHAR(255),
+  PRIMARY KEY (id)
+);
+
 CREATE TABLE product_item (
   id BIGINT NOT NULL AUTO_INCREMENT,
-  name VARCHAR(50) NOT NULL,
+  name VARCHAR(100) NOT NULL,
   price FLOAT,
   filename VARCHAR(255),
   content MEDIUMBLOB,
   username VARCHAR(255),
   status VARCHAR(255),
+  type VARCHAR(255),
+  product_ref_id BIGINT,
   store_id BIGINT,
   PRIMARY KEY (id)
 );
@@ -82,6 +91,8 @@ CREATE TABLE product_item (
 ALTER TABLE product_item
   ADD CONSTRAINT fk_product_store_id FOREIGN KEY (store_id) REFERENCES store (store_id);
 
+ALTER TABLE product_item
+  ADD CONSTRAINT fk_product_ref_id FOREIGN KEY (product_ref_id) REFERENCES product_ref (id);
 
 CREATE TABLE IF NOT EXISTS checkout (
   checkout_id BIGINT NOT NULL AUTO_INCREMENT,

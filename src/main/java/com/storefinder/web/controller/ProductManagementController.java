@@ -2,7 +2,7 @@ package com.storefinder.web.controller;
 
 
 import com.storefinder.store.constant.ProductStatus;
-import com.storefinder.store.dao.ProductItemDao;
+import com.storefinder.store.dao.impl.ProductItemDaoImpl;
 import com.storefinder.store.dto.ProductItemView;
 import com.storefinder.store.model.ProductItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class ProductManagementController {
     }
 
     @Autowired
-    private ProductItemDao productItemDao;
+    private ProductItemDaoImpl productItemDao;
 
     private static final String PRODUCT_MANAGEMENT_PAGE = "productManagement";
 
@@ -63,9 +63,9 @@ public class ProductManagementController {
     @RequestMapping(value = "/product-approve", method = RequestMethod.POST)
     public ModelAndView approveProduct(@RequestParam Long id) {
 
-        ProductItem productItem = productItemDao.getProduct(id);
+        ProductItem productItem = productItemDao.get(id);
         productItem.setStatus(ProductStatus.APPROVED);
-        productItemDao.saveProduct(productItem);
+        productItemDao.save(productItem);
 
         return loadProductManagementPage();
     }
@@ -74,9 +74,9 @@ public class ProductManagementController {
     @RequestMapping(value = "/product-reject", method = RequestMethod.POST)
     public ModelAndView rejectProduct(@RequestParam Long id) {
 
-        ProductItem productItem = productItemDao.getProduct(id);
+        ProductItem productItem = productItemDao.get(id);
         productItem.setStatus(ProductStatus.REJECTED);
-        productItemDao.saveProduct(productItem);
+        productItemDao.save(productItem);
 
         return loadProductManagementPage();
     }

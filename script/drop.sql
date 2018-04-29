@@ -1,11 +1,11 @@
 set FOREIGN_KEY_CHECKS = 0;
-drop table if EXISTS checkout;
-drop table if EXISTS locations;
-drop table if EXISTS orders;
 drop table if EXISTS product_item;
-drop table if EXISTS products;
 drop table if EXISTS store;
 drop table if EXISTS user_info;
 drop table if EXISTS user_roles;
 drop table if EXISTS users;
+drop table if EXISTS product_ref;
+drop table if EXISTS orders;
+drop table if EXISTS checkout;
+drop table if EXISTS locations;
 set FOREIGN_KEY_CHECKS = 1;

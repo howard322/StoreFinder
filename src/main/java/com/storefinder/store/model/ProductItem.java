@@ -43,6 +43,14 @@ public class ProductItem {
     @Column(name = "status")
     private ProductStatus status;
 
+    @Column(name = "product_ref_id")
+    private Long productRefId;
+
+    @ManyToOne
+    @JoinColumn(name = "product_ref_id", referencedColumnName = "id",
+        insertable = false, updatable = false)
+    private ProductRef productRef;
+
     @ManyToOne
     @JoinColumn(name = "store_id", referencedColumnName = "store_id")
     private Store store;
@@ -101,6 +109,22 @@ public class ProductItem {
 
     public void setStatus(ProductStatus status) {
         this.status = status;
+    }
+
+    public Long getProductRefId() {
+        return productRefId;
+    }
+
+    public void setProductRefId(Long productRefId) {
+        this.productRefId = productRefId;
+    }
+
+    public ProductRef getProductRef() {
+        return productRef;
+    }
+
+    public void setProductRef(ProductRef productRef) {
+        this.productRef = productRef;
     }
 
     public Store getStore() {

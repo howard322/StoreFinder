@@ -14,9 +14,6 @@
 				<h1>Grocery!</h1>
 				<p>Check out now.</p>
 			</div>
-
-			<a class="btn btn-primary" href="signup">Signup » </a> <a
-				class="btn btn-primary" href="login">Login » </a>
 		</div>
 
 	<div class="col-lg-12">

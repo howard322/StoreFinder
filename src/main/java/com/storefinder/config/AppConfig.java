@@ -48,7 +48,8 @@ public class AppConfig {
 		BasicDataSource ds = new BasicDataSource();
 	    ds.setDriverClassName("com.mysql.jdbc.Driver");
 		ds.setUrl("jdbc:mysql://localhost:3306/storefinderdb");
-		ds.setUsername("root");
+		ds.setUsername("test");
+		ds.setPassword("test");
 		return ds;
 	}
 

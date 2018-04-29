@@ -18,8 +18,8 @@ h4 {
 				<p>Place your orders now</p>
 			</div>
 
-			<a class="btn btn-primary" href="signup">Signup » </a> <a
-				class="btn btn-primary" href="login">Login » </a>
+			<a class="btn btn-primary" href="signup">Signup</a> <a
+				class="btn btn-primary" href="login">Login</a>
 		</div>
 
 		<div class="row">
@@ -104,7 +104,7 @@ h4 {
 	      <img src="assets/img/products/${product.name}.jpg" alt="${product.name}">
 	      <div class="caption">
 	        <h5 class="text-center">${product.name}</h5>
-	        <button type="button" data-itemid="${product.product_id}" data-name="${product.name}" data-desc="${product.description}" class="center-block btn btn-primary itemOpen" data-toggle="modal" data-target="#addEntry">Add Item</button>
+	        <button type="button" data-itemid="${product.id}" data-name="${product.name}" class="center-block btn btn-primary itemOpen" data-toggle="modal" data-target="#addEntry">Add Item</button>
 	      </div>
 	    </div>
 	  </div>

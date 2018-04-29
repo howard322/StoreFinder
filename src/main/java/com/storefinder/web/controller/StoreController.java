@@ -6,11 +6,11 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.storefinder.store.dao.ProductItemDao;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,14 +32,13 @@ import com.storefinder.users.model.UserInfo;
 
 @Controller
 public class StoreController {
+
 	@Autowired
 	private StoreDaoImpl storeDao;
 	@Autowired
 	private UserDaoImpl userDao;
 
-	@Autowired
-	private ProductItemDao productItemDao;
-
+	@PreAuthorize("hasRole('ROLE_BUYER')")
 	@RequestMapping(value = "/shop", method = RequestMethod.GET)
 	public ModelAndView shop(@RequestParam(value = "items", required = false) String items,
 			HttpServletRequest request) throws SQLException, JSONException {
