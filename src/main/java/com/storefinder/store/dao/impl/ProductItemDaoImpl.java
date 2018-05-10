@@ -39,6 +39,17 @@ public class ProductItemDaoImpl extends AbstractDao<ProductItem, Long> {
         return results;
     }
 
+    public boolean checkDuplicateProductType(String username, Long productRefId) {
+        Query query = getCurrentSession().createQuery(" from ProductItem item where item.username = :username "
+                + " and item.productRef = :productRefId and item.status = 'APPROVED'")
+                .setString("username", username)
+                .setLong("productRefId", productRefId);
+
+        List<ProductItem> items = (List<ProductItem>) query.list();
+
+        return items.size() > 1;
+    }
+
     @Override
     protected String getEntityName() {
         return "ProductItem";

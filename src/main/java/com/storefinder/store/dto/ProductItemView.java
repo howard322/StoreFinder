@@ -11,6 +11,7 @@ public class ProductItemView {
     private String name;
     private Float price;
     private ProductStatus status;
+    private String type;
     private String content;
 
     public ProductItemView(ProductItem productItem) {
@@ -18,6 +19,7 @@ public class ProductItemView {
         this.name = productItem.getName();
         this.price = productItem.getPrice();
         this.status = productItem.getStatus();
+        this.type = productItem.getProductRef().getName();
         this.content = ImageUtil.getImageAsString(productItem.getContent());
     }
 
@@ -35,6 +37,10 @@ public class ProductItemView {
 
     public ProductStatus getStatus() {
         return status;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public String getContent() {

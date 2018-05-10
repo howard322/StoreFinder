@@ -35,6 +35,7 @@
                                     <form:select path="productRefId" id="productRefInput">
                                         <form:options items="${productRefs}" />
                                     </form:select>
+                                    <span style="color: red">${message}</span>
                                 </div>
                             </div>
                             <div class="form-group">

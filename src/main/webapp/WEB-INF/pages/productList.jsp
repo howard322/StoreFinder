@@ -24,20 +24,24 @@
                             <img src="data:image/jpeg;base64,${product.content}" width="200" height="200" alt="${product.name}">
                             <div class="caption">
                                 <h5 class="text-center"><b>${product.name}</b></h5>
-                                <h5 class="text-center">${product.price}</h5>
+                                <h5 class="text-center">Type: ${product.type}</h5>
+                                <h5 class="text-center">Price: ${product.price}</h5>
+                                <h5 class="text-center">Status: ${product.status}</h5>
                             </div>
-                            <div class="form-group">
+                            <c class="form-group">
                                 <div class="col-sm-2">
                                     <a class="btn btn-primary btn-sm" href="/product-update?id=${product.id}" role="button">Edit</a>
                                 </div>
                                 <div class="col-sm-1"></div>
-                                <div class="col-sm-2">
-                                    <form:form action="product-delete" method="post">
-                                        <input type="hidden" value="${product.id}" name="id"/>
-                                        <input type="submit" class="btn btn-danger btn-sm"
-                                               onclick="return confirm('Are you sure you want to delete?')" value="Delete"/>
-                                    </form:form>
-                                </div>
+                                <c:if test="${product.status != 'APPROVED'}">
+                                    <div class="col-sm-2">
+                                        <form:form action="product-delete" method="post">
+                                            <input type="hidden" value="${product.id}" name="id"/>
+                                            <input type="submit" class="btn btn-danger btn-sm"
+                                                   onclick="return confirm('Are you sure you want to delete?')" value="Delete"/>
+                                        </form:form>
+                                    </div>
+                                </c:if>
                             </div>
                         </div>
                     </c:forEach>

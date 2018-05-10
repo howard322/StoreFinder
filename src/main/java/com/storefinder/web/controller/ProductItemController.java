@@ -102,6 +102,16 @@ public class ProductItemController {
         ModelAndView mav = new ModelAndView(PRODUCT_LIST_PAGE);
         String username = SecurityUtil.getLoggedInUsername();
 
+        if (productItemDao.checkDuplicateProductType(username, product.getProductRefId())) {
+            ModelAndView errorMav = new ModelAndView(PRODUCT_EDIT_PAGE);
+            errorMav.addObject("productRefs", productRefDao.getProductRefOpts());
+            errorMav.addObject("mode", "Add");
+            errorMav.addObject("product", new ProductItem());
+            errorMav.addObject("message", "Product with type already exists");
+
+            return errorMav;
+        }
+
         if (fileUpload != null && fileUpload.length > 0) {
             // get 0 since we are only uploading 1 file
             CommonsMultipartFile file = fileUpload[0];
