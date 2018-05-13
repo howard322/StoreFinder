@@ -4,23 +4,17 @@
 <html>
 <head>
 <title>� Store Finder PH</title>
-<link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet" />
-<link href="https://getbootstrap.com/docs/3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="assets/css/bootstrap-united.css" rel="stylesheet" />
 <link href="assets/css/bootstrap-datepicker.css" rel="stylesheet" />
 <link href="assets/css/bootstrap-datepicker.min.css" rel="stylesheet" />
-<link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap-responsive.css" rel="stylesheet" />
-<!-- <link href="bootstrap/css/bootstrap.css" rel="stylesheet" /> -->
-
-<link href="<c:url value="datepicker/css/datepicker.css" />" rel="stylesheet" />
-<script src="<c:url value="js/jquery/jquery.min.js" />"></script>
-<script src="<c:url value="js/jquery/jquery-3.2.1.js" />"></script>
-<script src="<c:url value="js/jquery/jquery.tabletojson.min.js" />"></script>
-<script src="<c:url value="datepicker/js/bootstrap-datepicker.js" />"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
-<script src="<c:url value="js/jquery/bootstrap-datepicker.js" />"></script>
-<script src="<c:url value="js/jquery/bootstrap-datepicker.min.js" />"></script>
-<script src="<c:url value="js/script.js" />"></script>
+<link href="<c:url value="/datepicker/css/datepicker.css" />" rel="stylesheet" />
+<script src="<c:url value="/js/jquery/jquery.min.js" />"></script>
+<script src="<c:url value="/js/jquery/jquery-3.2.1.js" />"></script>
+<script src="<c:url value="/js/jquery/jquery.tabletojson.min.js" />"></script>
+<script src="<c:url value="/datepicker/js/bootstrap-datepicker.js" />"></script>
+<script src="<c:url value="/js/jquery/bootstrap-datepicker.js" />"></script>
+<script src="<c:url value="/js/jquery/bootstrap-datepicker.min.js" />"></script>
+<script src="<c:url value="/js/script.js" />"></script>
 <style>
 body {
 	height: 100%;

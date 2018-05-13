@@ -37,7 +37,7 @@ public class StoreController {
 	private UserDaoImpl userDao;
 
 	@PreAuthorize("hasRole('ROLE_BUYER')")
-	@RequestMapping(value = "/shop", method = RequestMethod.GET)
+	@RequestMapping(value = "/shop-old", method = RequestMethod.GET)
 	public ModelAndView shop(@RequestParam(value = "items", required = false) String items,
 			HttpServletRequest request) throws SQLException, JSONException {
 
