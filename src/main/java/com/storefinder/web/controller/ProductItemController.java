@@ -106,13 +106,13 @@ public class ProductItemController {
             ModelAndView errorMav = new ModelAndView(PRODUCT_EDIT_PAGE);
             errorMav.addObject("productRefs", productRefDao.getProductRefOpts());
             errorMav.addObject("mode", "Add");
-            errorMav.addObject("product", new ProductItem());
+            errorMav.addObject("product", product);
             errorMav.addObject("message", "Product with type already exists");
 
             return errorMav;
         }
 
-        if (fileUpload != null && fileUpload.length > 0) {
+        if (fileUpload != null && fileUpload[0].getSize() > 0) {
             // get 0 since we are only uploading 1 file
             CommonsMultipartFile file = fileUpload[0];
 
@@ -129,6 +129,14 @@ public class ProductItemController {
             List<ProductItemView> productItems = productItemDao.findProductsByUsername(username);
             mav.addObject("products", productItems);
             mav.addObject("message", "Product saved.");
+        } else {
+            ModelAndView errorMav = new ModelAndView(PRODUCT_EDIT_PAGE);
+            errorMav.addObject("productRefs", productRefDao.getProductRefOpts());
+            errorMav.addObject("mode", "Add");
+            errorMav.addObject("product", product);
+            errorMav.addObject("message", "Please select an image");
+
+            return errorMav;
         }
 
         return mav;

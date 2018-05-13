@@ -47,7 +47,7 @@ public class ProductItemDaoImpl extends AbstractDao<ProductItem, Long> {
 
         List<ProductItem> items = (List<ProductItem>) query.list();
 
-        return items.size() > 1;
+        return items.size() >= 1;
     }
 
     @Override

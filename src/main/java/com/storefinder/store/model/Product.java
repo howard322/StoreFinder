@@ -1,5 +1,6 @@
 package com.storefinder.store.model;
 
+@Deprecated
 public class Product {
 
 	private int product_id;

@@ -18,7 +18,6 @@
 <script src="<c:url value="js/jquery/jquery.tabletojson.min.js" />"></script>
 <script src="<c:url value="datepicker/js/bootstrap-datepicker.js" />"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
-
 <script src="<c:url value="js/jquery/bootstrap-datepicker.js" />"></script>
 <script src="<c:url value="js/jquery/bootstrap-datepicker.min.js" />"></script>
 <script src="<c:url value="js/script.js" />"></script>

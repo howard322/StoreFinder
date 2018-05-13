@@ -1,11 +1,10 @@
 package com.storefinder.web.controller;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.storefinder.store.dao.impl.StoreDaoImpl;
+import com.storefinder.store.model.Checkout;
+import com.storefinder.store.model.Product;
+import com.storefinder.users.dao.UserDaoImpl;
+import com.storefinder.users.model.UserInfo;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,11 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.storefinder.store.dao.impl.StoreDaoImpl;
-import com.storefinder.store.model.Checkout;
-import com.storefinder.store.model.Product;
-import com.storefinder.users.dao.UserDaoImpl;
-import com.storefinder.users.model.UserInfo;
+import javax.servlet.http.HttpServletRequest;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 @Controller
@@ -45,7 +43,7 @@ public class StoreController {
 
 		ModelAndView model = new ModelAndView();
 
-		model.addObject("products", storeDao.getAllProducts());
+		model.addObject("products", null);
 		if(items != null) {
 			model.addObject("menuitems", items);
 		} else {
@@ -54,7 +52,6 @@ public class StoreController {
 		
 		model.setViewName("shop");
 		return model;
-
 	}
 
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)

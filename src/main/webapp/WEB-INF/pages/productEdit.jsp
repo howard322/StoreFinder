@@ -25,14 +25,21 @@
                                                 placeholder="Price" step=".01"/>
                                 </div>
                             </div>
-                            <div>
+                            <div class="form-group">
                                 <label for="priceInput" class="col-lg-3 control-label">Image</label>
-                                <input type="file" class="btn" name="fileUpload"/>
+                                <div class="col-lg-9">
+                                    <label class="btn btn-success">
+                                        <input type="file" style="display: none" name="fileUpload"
+                                               onchange="$('#upload-file-info').html(this.files[0].name)"/>
+                                        Upload File
+                                    </label>
+                                    <span id="upload-file-info"></span>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="productRefInput" class="col-lg-3 control-label">Type</label>
                                 <div class="col-lg-9" style="margin-bottom: 10px">
-                                    <form:select path="productRefCode" id="productRefInput">
+                                    <form:select cssClass="form-control" path="productRefCode" id="productRefInput">
                                         <form:options items="${productRefs}" />
                                     </form:select>
                                     <span style="color: red">${message}</span>
