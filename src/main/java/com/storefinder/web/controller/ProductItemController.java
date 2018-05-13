@@ -102,7 +102,7 @@ public class ProductItemController {
         ModelAndView mav = new ModelAndView(PRODUCT_LIST_PAGE);
         String username = SecurityUtil.getLoggedInUsername();
 
-        if (productItemDao.checkDuplicateProductType(username, product.getProductRefId())) {
+        if (productItemDao.checkDuplicateProductType(username, product.getProductRefCode())) {
             ModelAndView errorMav = new ModelAndView(PRODUCT_EDIT_PAGE);
             errorMav.addObject("productRefs", productRefDao.getProductRefOpts());
             errorMav.addObject("mode", "Add");

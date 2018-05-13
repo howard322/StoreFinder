@@ -6,12 +6,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 @Repository
 @Transactional
-public class ProductRefDao extends AbstractDao<ProductRef, Long> {
+public class ProductRefDao extends AbstractDao<ProductRef, String> {
 
     @Override
     protected String getEntityName() {
@@ -23,11 +22,11 @@ public class ProductRefDao extends AbstractDao<ProductRef, Long> {
         return ProductRef.class;
     }
 
-    public Map<Long, String> getProductRefOpts() {
-        Map<Long, String> returnVal = new LinkedHashMap<Long, String>();
+    public Map<String, String> getProductRefOpts() {
+        Map<String, String> returnVal = new LinkedHashMap<String, String>();
 
         for (ProductRef ref: getAll()) {
-            returnVal.put(ref.getId(), ref.getName());
+            returnVal.put(ref.getCode(), ref.getName());
         }
 
         return returnVal;

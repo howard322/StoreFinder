@@ -43,11 +43,11 @@ public class ProductItem {
     @Column(name = "status")
     private ProductStatus status;
 
-    @Column(name = "product_ref_id")
-    private Long productRefId;
+    @Column(name = "product_code")
+    private String productRefCode;
 
     @ManyToOne
-    @JoinColumn(name = "product_ref_id", referencedColumnName = "id",
+    @JoinColumn(name = "product_code", referencedColumnName = "code",
         insertable = false, updatable = false)
     private ProductRef productRef;
 
@@ -111,12 +111,12 @@ public class ProductItem {
         this.status = status;
     }
 
-    public Long getProductRefId() {
-        return productRefId;
+    public String getProductRefCode() {
+        return productRefCode;
     }
 
-    public void setProductRefId(Long productRefId) {
-        this.productRefId = productRefId;
+    public void setProductRefCode(String productRefCode) {
+        this.productRefCode = productRefCode;
     }
 
     public ProductRef getProductRef() {

@@ -39,11 +39,11 @@ public class ProductItemDaoImpl extends AbstractDao<ProductItem, Long> {
         return results;
     }
 
-    public boolean checkDuplicateProductType(String username, Long productRefId) {
+    public boolean checkDuplicateProductType(String username, String productRefCode) {
         Query query = getCurrentSession().createQuery(" from ProductItem item where item.username = :username "
-                + " and item.productRef = :productRefId and item.status = 'APPROVED'")
+                + " and item.productRefCode = :productRefCode and item.status = 'APPROVED'")
                 .setString("username", username)
-                .setLong("productRefId", productRefId);
+                .setString("productRefCode", productRefCode);
 
         List<ProductItem> items = (List<ProductItem>) query.list();
 

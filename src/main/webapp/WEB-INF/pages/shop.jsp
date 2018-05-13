@@ -17,9 +17,6 @@ h4 {
 				<h1>Grocery!</h1>
 				<p>Place your orders now</p>
 			</div>
-
-			<a class="btn btn-primary" href="signup">Signup</a> <a
-				class="btn btn-primary" href="login">Login</a>
 		</div>
 
 		<div class="row">

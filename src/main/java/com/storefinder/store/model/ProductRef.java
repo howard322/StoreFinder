@@ -12,9 +12,8 @@ import javax.persistence.Table;
 public class ProductRef {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "code", nullable = false, length = 60)
+    private String code;
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
@@ -22,12 +21,12 @@ public class ProductRef {
     @Column(name = "description")
     private String description;
 
-    public Long getId() {
-        return id;
+    public String getCode() {
+        return code;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {

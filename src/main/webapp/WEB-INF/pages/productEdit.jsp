@@ -32,7 +32,7 @@
                             <div class="form-group">
                                 <label for="productRefInput" class="col-lg-3 control-label">Type</label>
                                 <div class="col-lg-9" style="margin-bottom: 10px">
-                                    <form:select path="productRefId" id="productRefInput">
+                                    <form:select path="productRefCode" id="productRefInput">
                                         <form:options items="${productRefs}" />
                                     </form:select>
                                     <span style="color: red">${message}</span>
