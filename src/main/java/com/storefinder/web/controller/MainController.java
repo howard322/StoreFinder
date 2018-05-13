@@ -48,7 +48,6 @@ public class MainController {
 				roles.add(authority.getAuthority());
 			}
 
-			addRoleProps(model, auth);
 			model.addObject("email", user.getEmail());
 			model.setViewName("hello");
 			return model;
@@ -82,7 +81,6 @@ public class MainController {
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();
 			UserInfo user = userDao.getUser(userDetail.getUsername());
-			addRoleProps(model, auth);
 
 			model.addObject("email", user.getEmail());
 			model.setViewName("hello");
@@ -152,7 +150,6 @@ public class MainController {
 			model.addObject("username", userDetail.getUsername());
 			model.addObject("role", userDetail.getAuthorities());
 
-			addRoleProps(model, auth);
 			model.setViewName("hello");
 			return model;
 		}
@@ -185,17 +182,6 @@ public class MainController {
 			return "registerSuccess";
 		}
 
-	}
-
-	private void addRoleProps(ModelAndView model, Authentication auth) {
-		List<String> roles = new ArrayList<String>();
-		for (GrantedAuthority authority : auth.getAuthorities()) {
-			roles.add(authority.getAuthority());
-		}
-
-		model.addObject("isAdmin", roles.contains("ROLE_ADMIN"));
-		model.addObject("isBuyer", roles.contains("ROLE_BUYER"));
-		model.addObject("isSeller", roles.contains("ROLE_SELLER"));
 	}
 
 }

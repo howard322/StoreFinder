@@ -1,17 +1,18 @@
-<%@taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file = "/WEB-INF/includes/header.jsp" %>
 	<div class="container">
 		<div class="jumbotron">
 			<div>
-				<h1>Welcome to Store Finder PH� ${email}!</h1>
+				<h1>Welcome to Store Finder PH ${email}!</h1>
 				<p>To fill this out with numerous promotions that are lined
 				up with introducing products from different stores.</p>
 			</div>
 
-			<a class="btn btn-primary" href="signup">Signup � </a> <a
-				class="btn btn-primary" href="login">Login � </a>
+			<sec:authorize access="!isAuthenticated()">
+				<a class="btn btn-primary" href="signup">Sign-up</a>
+				<a class="btn btn-primary" href="login">Login</a>
+			</sec:authorize>
 		</div>
 
 		<div class="row">
@@ -23,7 +24,7 @@
 				</div>
 			</div>
 
-			<c:if test="${isBuyer}">
+			<sec:authorize access="hasRole('ROLE_BUYER')">
 				<div class="col-sm-3">
 					<div class="jumbotron mp">
 					  <h4>Grocery!</h4>
@@ -31,19 +32,17 @@
 					  <p><a class="btn btn-primary btn-lg" href="shop" role="button">Learn more</a></p>
 					</div>
 				</div>
-			</c:if>
+			</sec:authorize>
 		  	<div class="col-sm-6">
 				<div class="jumbotron mp">
 				  <h4>Products</h4>
 				  <p>
-					  <c:choose>
-					  	<c:when test="${isAdmin}">
-							<a class="btn btn-primary btn-lg" href="/product-management" role="button">Product Management</a>
-						</c:when>
-						<c:when test="${isSeller}">
-							<a class="btn btn-primary btn-lg" href="/product-list" role="button">Product List</a>
-						</c:when>
-					  </c:choose>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<a class="btn btn-primary btn-lg" href="/product-management" role="button">Product Management</a>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_SELLER')">
+						<a class="btn btn-primary btn-lg" href="/product-list" role="button">Product List</a>
+					</sec:authorize>
 				  </p>
 				</div>
 			</div>

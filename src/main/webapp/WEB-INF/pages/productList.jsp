@@ -20,28 +20,21 @@
             <c:otherwise>
                 <div class="row" style="margin-left: 10px">
                     <c:forEach items="${products}" var="product">
-                        <div class="thumbnail" style="margin-left: 10px">
-                            <img src="data:image/jpeg;base64,${product.content}" width="200" height="200" alt="${product.name}">
-                            <div class="caption">
-                                <h5 class="text-center"><b>${product.name}</b></h5>
-                                <h5 class="text-center">Type: ${product.type}</h5>
-                                <h5 class="text-center">Price: ${product.price}</h5>
-                                <h5 class="text-center">Status: ${product.status}</h5>
-                            </div>
-                            <c class="form-group">
-                                <div class="col-sm-2">
-                                    <a class="btn btn-primary btn-sm" href="/product-update?id=${product.id}" role="button">Edit</a>
-                                </div>
-                                <div class="col-sm-1"></div>
-                                <c:if test="${product.status != 'APPROVED'}">
-                                    <div class="col-sm-2">
-                                        <form:form action="product-delete" method="post">
-                                            <input type="hidden" value="${product.id}" name="id"/>
-                                            <input type="submit" class="btn btn-danger btn-sm"
-                                                   onclick="return confirm('Are you sure you want to delete?')" value="Delete"/>
-                                        </form:form>
-                                    </div>
-                                </c:if>
+                        <div class="col-md-2 text-center" style="margin-left: 10px">
+                            <img src="data:image/jpeg;base64,${product.content}" width="100" height="100" alt="${product.name}">
+                                <h5><b>${product.name}</b></h5>
+                                <h5>Type: ${product.type}</h5>
+                                <h5>Price: ${product.price}</h5>
+                                <h5>Status: ${product.status}</h5>
+                            <div class="btn-group">
+                                <form:form action="product-delete" method="post">
+                                    <a class="btn btn-primary btn-xs" href="/product-update?id=${product.id}" role="button">Edit</a>
+                                    <c:if test="${product.status != 'APPROVED'}">
+                                        <input type="hidden" value="${product.id}" name="id"/>
+                                        <input type="submit" class="btn btn-danger btn-xs"
+                                                       onclick="return confirm('Are you sure you want to delete?')" value="Delete"/>
+                                    </c:if>
+                                </form:form>
                             </div>
                         </div>
                     </c:forEach>

@@ -1,9 +1,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@page session="true"%>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-<title>» Store Finder PH</title>
+<title>ï¿½ Store Finder PH</title>
 <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="https://getbootstrap.com/docs/3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="assets/css/bootstrap-united.css" rel="stylesheet" />
@@ -62,9 +62,9 @@ body {
 </style>
 </head>
 <body>
-	<div class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar navbar-default navbar-fixed-top">
 
-		<div class="navbar-header">
+        <div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
 				data-target=".navbar-responsive-collapse">
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
@@ -74,7 +74,7 @@ body {
 
 		<div class="navbar-collapse">
 			<div class="navbar-form navbar-left">
-				<h5 style="font-weight: bold; color: white;">STORE FINDER PH©</h5>
+				<h5 style="font-weight: bold; color: white;">STORE FINDER PH</h5>
 			</div>
 			
 			<form class="navbar-form navbar-right" role="search">
@@ -86,13 +86,12 @@ body {
 			
 			<ul class="nav navbar-nav navbar-right">
 				<li class="nav-item active"><a href=".">Home</a></li>
-				<sec:authorize access="hasRole('ROLE_USER')">
+				<sec:authorize access="isAuthenticated()">
 					<!-- For login user -->
 					<c:url value="/logout" var="logoutUrl" />
-					<li><form action="${logoutUrl}" method="post" id="logoutForm" style="display:none">
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
-					</form></li>
+					<li>
+						<form action="${logoutUrl}" method="post" id="logoutForm" style="display:none"></form>
+					</li>
 					<script>
 						function formSubmit() {
 							document.getElementById("logoutForm").submit();
@@ -118,6 +117,5 @@ body {
 					</ul></li>
 			</ul>
 		</div>
-		<!-- /.nav-collapse -->
 	</div>
 	<br><br><br><br>
