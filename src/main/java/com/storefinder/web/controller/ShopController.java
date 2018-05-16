@@ -1,5 +1,6 @@
 package com.storefinder.web.controller;
 
+import com.storefinder.store.dao.impl.ProductItemDaoImpl;
 import com.storefinder.store.dao.impl.ProductRefDao;
 import com.storefinder.store.dto.ProductSearchForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -19,6 +21,9 @@ public class ShopController {
 
     @Autowired
     private ProductRefDao productRefDao;
+
+    @Autowired
+    private ProductItemDaoImpl productItemDao;
 
     @PreAuthorize("hasRole('ROLE_BUYER')")
     @RequestMapping(value = "/shop", method = RequestMethod.GET)
@@ -33,9 +38,9 @@ public class ShopController {
     @PreAuthorize("hasRole('ROLE_BUYER')")
     @RequestMapping(value = "/shop-search", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ModelAndView searchProducts(@RequestBody List<ProductSearchForm> data) {
-        ModelAndView mav = new ModelAndView("shop");
+        ModelAndView mav = new ModelAndView("shopSearch");
 
-        mav.addObject("productRefs", productRefDao.getProductRefOpts());
+        mav.addObject("productSearchResult", productItemDao.searchApprovedProducts(data));
 
         return mav;
     }

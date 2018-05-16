@@ -34,6 +34,11 @@ $(document).ready(function() {
         var refName = $('#productRefInputModal').find(':selected').data('name');
         var quantity = $('#orderQuantityModal').val();
 
+        if (!quantity || quantity <= 0) {
+            alert('Quantity must be greater than 0.');
+            return;
+        }
+
         if ($('#' + refVal + '-item').length === 0) {
             itemAdder(refName, quantity, "desc", refVal, false);
         } else {
@@ -70,23 +75,28 @@ $(document).ready(function() {
     $('#productSearch').click(function(e){
         e.preventDefault();
         var table = $('#entries').tableToJSON().map(function (obj) {
-            delete obj.Item;
             delete obj.Description;
             obj.code = obj.ItemCode;
+            obj.name = obj.Item;
             obj.qty = obj.Quantity;
             delete obj.ItemCode;
+            delete obj.Item;
             delete obj.Quantity;
             return obj;
         });
+
+        if (table && table.length === 0) {
+            alert("Please add items first.");
+            return;
+        }
 
         $.ajax({
             url: '/shop-search',
             type: 'POST',
             data: JSON.stringify(table),
             contentType:"application/json; charset=utf-8",
-            dataType:"json",
             success: function(response) {
-                console.log("RESPONSE " + JSON.stringify(response))
+                $('#searchResults').html(response);
             }
         });
     });

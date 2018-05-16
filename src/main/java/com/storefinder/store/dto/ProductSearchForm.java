@@ -3,6 +3,7 @@ package com.storefinder.store.dto;
 public class ProductSearchForm {
 
     private String code;
+    private String name;
     private Integer qty;
 
     public String getCode() {
@@ -11,6 +12,14 @@ public class ProductSearchForm {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getQty() {

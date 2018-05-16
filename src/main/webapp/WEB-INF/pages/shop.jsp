@@ -1,6 +1,7 @@
 <%@taglib prefix="sec"
           uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file = "/WEB-INF/includes/header.jsp" %>
 <style>
     h4 {
@@ -74,26 +75,6 @@
                 </div>
             </div>
         </div>
-        <%--<div class="col-sm-8">
-            <div class="jumbotron mp">
-                <h4>Items List</h4>
-                <div class="row" style="margin-left: 30px">
-
-                    <c:forEach items="${products}" var="product">
-                        <div class="col-xs-4 col-sm-3" style="margin-right: -20px;">
-                            <div class="thumbnail">
-                                <img src="assets/img/products/${product.name}.jpg" alt="${product.name}">
-                                <div class="caption">
-                                    <h5 class="text-center">${product.name}</h5>
-                                    <button type="button" data-itemid="${product.id}" data-name="${product.name}" class="center-block btn btn-primary itemOpen" data-toggle="modal" data-target="#addEntry">Add Item</button>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
-
-                </div>
-
-            </div>
-        </div>--%>
+        <div id="searchResults" class="col-sm-8"></div>
 </div>
 <%@ include file = "/WEB-INF/includes/footer.jsp" %>
