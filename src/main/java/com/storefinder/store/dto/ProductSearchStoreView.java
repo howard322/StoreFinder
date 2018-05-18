@@ -1,51 +1,45 @@
 package com.storefinder.store.dto;
 
 import com.storefinder.store.model.ProductItem;
-import com.storefinder.store.model.Store;
 import com.storefinder.util.ImageUtil;
 
 public class ProductSearchStoreView {
 
-    private Long storeId;
-
-    private Float price;
-
-    private String storeName;
-
-    private String productCode;
+    private ProductItem item;
 
     private Integer qty;
 
-    private String content;
-
     public ProductSearchStoreView(ProductItem item, Integer qty) {
-        Store store = item.getStore();
-        this.storeId = store.getStoreId();
-        this.price = item.getPrice();
-        this.storeName = store.getName();
-        this.productCode = item.getProductRefCode();
-        this.content = ImageUtil.getImageAsString(item.getContent());
+        this.item = item;
         this.qty = qty;
     }
 
     public Long getStoreId() {
-        return storeId;
+        return item.getStore().getStoreId();
     }
 
     public Float getPrice() {
-        return price;
+        return item.getPrice();
     }
 
     public String getStoreName() {
-        return storeName;
+        return item.getStore().getName();
     }
 
     public String getProductCode() {
-        return productCode;
+        return item.getProductRefCode();
+    }
+
+    public String getProductDetails() {
+        return item.getProductRef().getName();
+    }
+
+    public String getProductName() {
+        return item.getName();
     }
 
     public String getContent() {
-        return content;
+        return ImageUtil.getImageAsString(item.getContent());
     }
 
     public Integer getQty() {
