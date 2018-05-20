@@ -118,24 +118,21 @@ $(document).ready(function() {
         window.open('checkout?items='+tableStr, "_self");
     });
 
-    $('input[type=radio][name="paymentMethod"]').click(function(){
-        var result = document.querySelector('input[name="paymentMethod"]:checked').value;
-        if(result == '1'){
+    $('input[type=radio][name="paymentType"]').click(function(){
+        var result = document.querySelector('input[name="paymentType"]:checked').value;
+        if(result === 'CREDIT_CARD'){
             $('#fullCardNumber').removeAttr('disabled');
             $('#fullExpiry').removeAttr('disabled');
-            $('#fullCVC').removeAttr('disabled');
+            $('#fullCvv').removeAttr('disabled');
         }
-        if(result == '0') {
+        if(result === 'CASH') {
             $('#fullCardNumber').prop('disabled', true);
             $('#fullExpiry').prop('disabled', true);
-            $('#fullCVC').prop('disabled', true);
+            $('#fullCvv').prop('disabled', true);
         }
     });
 
-    $('input[type=radio][name="acquireMethod"]').change(function(){
-        var result = document.querySelector('input[name="acquireMethod"]').value;
-        console.log(result);
-    });
+    $("#datepicker").datetimepicker();
 
     $('#productCheckout').click(function(){
 

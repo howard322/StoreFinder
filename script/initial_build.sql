@@ -95,23 +95,40 @@ ALTER TABLE product_item
   ADD CONSTRAINT fk_product_ref_code FOREIGN KEY (product_code) REFERENCES product_ref (code);
 
 CREATE TABLE IF NOT EXISTS checkout (
-  checkout_id BIGINT NOT NULL AUTO_INCREMENT,
-  name varchar(60) NOT NULL,
-  address varchar(60) NOT NULL,
-  city BIGINT NOT NULL,
-  number varchar(60) NOT NULL,
-  delivery tinyint(4) NOT NULL DEFAULT '1',
-  orderDate varchar(60) NOT NULL,
-  creditpayment tinyint(4) NOT NULL DEFAULT '1',
-  cardNumber varchar(20) DEFAULT NULL,
-  cardExpiry varchar(5) DEFAULT NULL,
-  cardCVC varchar(3) DEFAULT NULL,
-  orders_id varchar(20) NOT NULL,
-  PRIMARY KEY (checkout_id)
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  createdDate DATETIME NOT NULL,
+  buyer VARCHAR(255) NOT NULL,
+  name VARCHAR(255),
+  address VARCHAR(500),
+  city_id BIGINT NOT NULL,
+  phone_number VARCHAR(60),
+  acquire_method VARCHAR(60) NOT NULL,
+  payment_type VARCHAR(60) NOT NULL,
+  acquire_date DATETIME,
+  card_number VARCHAR(20),
+  card_expiry VARCHAR(5),
+  card_cvv VARCHAR(3),
+  total FLOAT NOT NULL,
+  PRIMARY KEY (id)
 );
 
 ALTER TABLE checkout
-  ADD CONSTRAINT fk_citycheck_id FOREIGN KEY (city) REFERENCES locations (loc_id);
+  ADD CONSTRAINT fk_checkout_city FOREIGN KEY (city_id) REFERENCES locations (loc_id);
+
+CREATE TABLE IF NOT EXISTS checkout_item (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  checkout_id BIGINT NOT NULL,
+  item_id BIGINT NOT NULL,
+  qty INTEGER,
+  sub_total FLOAT,
+  PRIMARY KEY (id)
+);
+
+ALTER TABLE checkout_item
+  ADD CONSTRAINT fk_checkout_item_checkout FOREIGN KEY (checkout_id) REFERENCES checkout (id);
+
+ALTER TABLE checkout_item
+  ADD CONSTRAINT fk_checkout_item_product_item FOREIGN KEY (item_id) REFERENCES product_item (id);
 
 CREATE TABLE IF NOT EXISTS orders (
   order_id varchar(20) NOT NULL,

@@ -18,6 +18,10 @@ public class ProductSearchStoreView {
         return item.getStore().getStoreId();
     }
 
+    public Long getItemId() {
+        return item.getId();
+    }
+
     public Float getPrice() {
         return item.getPrice();
     }

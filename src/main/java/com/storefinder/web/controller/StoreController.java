@@ -1,7 +1,7 @@
 package com.storefinder.web.controller;
 
 import com.storefinder.store.dao.impl.StoreDaoImpl;
-import com.storefinder.store.model.Checkout;
+import com.storefinder.store.model.CheckoutOld;
 import com.storefinder.store.model.Product;
 import com.storefinder.users.dao.UserDaoImpl;
 import com.storefinder.users.model.UserInfo;
@@ -54,7 +54,7 @@ public class StoreController {
 		return model;
 	}
 
-	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
+	@RequestMapping(value = "/checkout-old", method = RequestMethod.GET)
 	public ModelAndView checkout(@RequestParam(value = "items", required = true) String items,
 			HttpServletRequest request) throws SQLException, JSONException {
 
@@ -138,13 +138,13 @@ public class StoreController {
 	}
 	
 	@ModelAttribute("newCheckout")
-	public Checkout getCheckout() {
-		return new Checkout();
+	public CheckoutOld getCheckout() {
+		return new CheckoutOld();
 	}
 	
 	@RequestMapping(value = "/checkoutOrders", method = RequestMethod.POST)
-	public String register(@RequestParam(value = "items", required = true) String items, 
-			@ModelAttribute("newCheckout") Checkout newCheckout, ModelMap model) {
+	public String register(@RequestParam(value = "items", required = true) String items,
+                           @ModelAttribute("newCheckout") CheckoutOld newCheckout, ModelMap model) {
 		
 		JSONArray orders;
 		try {

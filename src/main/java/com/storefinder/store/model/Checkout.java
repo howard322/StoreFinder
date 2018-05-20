@@ -1,116 +1,195 @@
 package com.storefinder.store.model;
 
-import java.util.ArrayList;
+import com.storefinder.store.constant.PaymentType;
+import com.storefinder.store.constant.AcquireMethod;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
+@Entity
+@Table(name = "checkout")
 public class Checkout {
-	private String name;
-	private String address;
-	private int city;
-	private String number;
-	private int acquireMethod;
-	private String date;
-	private String time;
-	private int paymentMethod;
-	
-	private String cardNumber;
-	private String cardExpiry;
-	private String cardCVC;
-	
-	private ArrayList<Product> orders;
 
-	public String getName() {
-		return name;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Column(name = "created_date")
+    private Date createdDate;
 
-	public String getAddress() {
-		return address;
-	}
+    @Column(name = "buyer")
+    private String buyer;
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    @Column(name = "name")
+    private String name;
 
-	public int getCity() {
-		return city;
-	}
+    @Column(name = "address")
+    private String address;
 
-	public void setCity(int city) {
-		this.city = city;
-	}
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
-	public String getNumber() {
-		return number;
-	}
+    @ManyToOne
+    @JoinColumn(name = "city_id", referencedColumnName = "loc_id")
+    private Locations city;
 
-	public void setNumber(String number) {
-		this.number = number;
-	}
+    @Enumerated(EnumType.STRING)
+    @Column(name = "acquire_method")
+    private AcquireMethod acquireMethod;
 
-	public int getAcquireMethod() {
-		return acquireMethod;
-	}
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_type")
+    private PaymentType paymentType;
 
-	public void setAcquireMethod(int acquireMethod) {
-		this.acquireMethod = acquireMethod;
-	}
+    @Column(name = "acquire_date")
+    private Date acquireDate;
 
-	public String getDate() {
-		return date;
-	}
+    @Column(name = "card_number")
+    private String cardNumber;
 
-	public void setDate(String date) {
-		this.date = date;
-	}
+    @Column(name = "card_expiry")
+    private String cardExpiry;
 
-	public String getTime() {
-		return time;
-	}
+    @Column(name = "card_cvv")
+    private String cardCvv;
 
-	public void setTime(String time) {
-		this.time = time;
-	}
+    @Column(name = "total")
+    private Float total;
 
-	public int getPaymentMethod() {
-		return paymentMethod;
-	}
+    @OneToMany(mappedBy = "checkout", cascade = CascadeType.ALL)
+    private List<CheckoutItem> checkoutItems = new LinkedList<CheckoutItem>();
 
-	public void setPaymentMethod(int paymentMethod) {
-		this.paymentMethod = paymentMethod;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getCardNumber() {
-		return cardNumber;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setCardNumber(String cardNumber) {
-		this.cardNumber = cardNumber;
-	}
+    public Date getCreatedDate() {
+        return createdDate;
+    }
 
-	public String getCardExpiry() {
-		return cardExpiry;
-	}
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
 
-	public void setCardExpiry(String cardExpiry) {
-		this.cardExpiry = cardExpiry;
-	}
+    public String getBuyer() {
+        return buyer;
+    }
 
-	public String getCardCVC() {
-		return cardCVC;
-	}
+    public void setBuyer(String buyer) {
+        this.buyer = buyer;
+    }
 
-	public void setCardCVC(String cardCVC) {
-		this.cardCVC = cardCVC;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public ArrayList<Product> getOrders() {
-		return orders;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setOrders(ArrayList<Product> orders) {
-		this.orders = orders;
-	}
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Locations getCity() {
+        return city;
+    }
+
+    public void setCity(Locations city) {
+        this.city = city;
+    }
+
+    public AcquireMethod getAcquireMethod() {
+        return acquireMethod;
+    }
+
+    public void setAcquireMethod(AcquireMethod acquireMethod) {
+        this.acquireMethod = acquireMethod;
+    }
+
+    public PaymentType getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(PaymentType paymentType) {
+        this.paymentType = paymentType;
+    }
+
+    public Date getAcquireDate() {
+        return acquireDate;
+    }
+
+    public void setAcquireDate(Date acquireDate) {
+        this.acquireDate = acquireDate;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getCardExpiry() {
+        return cardExpiry;
+    }
+
+    public void setCardExpiry(String cardExpiry) {
+        this.cardExpiry = cardExpiry;
+    }
+
+    public String getCardCvv() {
+        return cardCvv;
+    }
+
+    public void setCardCvv(String cardCvv) {
+        this.cardCvv = cardCvv;
+    }
+
+    public Float getTotal() {
+        return total;
+    }
+
+    public void setTotal(Float total) {
+        this.total = total;
+    }
+
+    public List<CheckoutItem> getCheckoutItems() {
+        return checkoutItems;
+    }
+
+    public void setCheckoutItems(List<CheckoutItem> checkoutItems) {
+        this.checkoutItems = checkoutItems;
+    }
 }

@@ -2,6 +2,8 @@ package com.storefinder.web.controller;
 
 import com.storefinder.store.dao.impl.ProductItemDaoImpl;
 import com.storefinder.store.dao.impl.ProductRefDao;
+import com.storefinder.store.dto.CheckoutItemForm;
+import com.storefinder.store.dto.PreCheckoutForm;
 import com.storefinder.store.dto.ProductSearchForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -10,9 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -41,6 +43,7 @@ public class ShopController {
         ModelAndView mav = new ModelAndView("shopSearch");
 
         mav.addObject("productSearchResult", productItemDao.searchApprovedProducts(data));
+        mav.addObject("preCheckoutForm", new PreCheckoutForm());
 
         return mav;
     }

@@ -19,7 +19,7 @@ import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.storefinder.store.model.Checkout;
+import com.storefinder.store.model.CheckoutOld;
 import com.storefinder.store.model.City;
 import com.storefinder.store.model.Product;
 import org.springframework.transaction.annotation.Transactional;
@@ -128,7 +128,7 @@ public class StoreDaoImpl extends AbstractDao<Store, Long> implements StoreDao {
 	}
 
 	@Override
-	public void checkoutOrders(Checkout orderDetails) throws SQLException {
+	public void checkoutOrders(CheckoutOld orderDetails) throws SQLException {
 		Connection connectionSource = dataSource.getConnection();
 		PreparedStatement stmt = null;
 		

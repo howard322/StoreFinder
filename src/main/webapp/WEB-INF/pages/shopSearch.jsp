@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <div class="jumbotron mp">
     <h4>Search Results</h4>
@@ -88,7 +89,15 @@
                                         </table>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-success">Checkout</button>
+                                        <form:form id="checkout-form" action="checkout" modelAttribute="preCheckoutForm">
+                                            <form:input path="total" value="${productStoreTotal.total}" type="hidden"/>
+                                            <c:forEach var="item" items="${productStoreTotal.selectedProducts}" varStatus="i">
+                                                <form:input path="checkoutItems[${i.index}].itemId" value="${item.itemId}" type="hidden"/>
+                                                <form:input path="checkoutItems[${i.index}].qty" value="${item.qty}" type="hidden"/>
+                                            </c:forEach>
+                                            <input type="submit" class="btn btn-success" onclick="return confirm('Proceed with checkout?')" value="Checkout"/>
+                                        </form:form>
+
                                     </div>
                                 </div>
                             </div>
