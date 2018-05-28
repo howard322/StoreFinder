@@ -48,13 +48,6 @@ CREATE TABLE locations (
 ALTER TABLE locations
   ADD CONSTRAINT fk_loc_id_parent_loc FOREIGN KEY (parent_loc) REFERENCES locations (loc_id);
 
-INSERT INTO locations (loc_id, name, parent_loc) VALUES
-  (1, 'Manila City', 1),
-  (2, 'Quezon City', 2),
-  (3, 'Makati City', 3),
-  (4, 'Taguig City', 4),
-  (5, 'Sampaloc', 1);
-
 
 CREATE TABLE store (
   store_id BIGINT NOT NULL AUTO_INCREMENT,

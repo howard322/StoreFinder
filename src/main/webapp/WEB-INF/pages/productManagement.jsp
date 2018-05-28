@@ -30,6 +30,7 @@
                                 <h5><b>${product.name}</b></h5>
                                 <h5>Type: ${product.type}</h5>
                                 <h5>Price: ${product.price}</h5>
+                                <h5>Store: ${product.store}</h5>
                                 <div class="btn-group">
                                     <form:form action="product-approve" method="post" cssStyle="float:left; width:auto">
                                         <input type="hidden" value="${product.id}" name="id"/>
@@ -61,6 +62,7 @@
                                     <h5><b>${product.name}</b></h5>
                                     <h5>Type: ${product.type}</h5>
                                     <h5>Price: ${product.price}</h5>
+                                    <h5>Store: ${product.store}</h5>
                                 </div>
                             </c:forEach>
                         </div>
@@ -80,6 +82,7 @@
                                     <h5><b>${product.name}</b></h5>
                                     <h5>Type: ${product.type}</h5>
                                     <h5>Price: ${product.price}</h5>
+                                    <h5>Store: ${product.store}</h5>
                                 </div>
                             </c:forEach>
                         </div>
