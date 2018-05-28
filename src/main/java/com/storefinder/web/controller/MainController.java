@@ -1,11 +1,9 @@
 package com.storefinder.web.controller;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.storefinder.store.dao.impl.LocationsDao;
+import com.storefinder.store.dao.impl.StoreDaoImpl;
+import com.storefinder.users.dao.UserDaoImpl;
+import com.storefinder.users.model.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -22,166 +20,159 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.storefinder.store.dao.impl.StoreDaoImpl;
-import com.storefinder.users.dao.UserDaoImpl;
-import com.storefinder.users.model.UserInfo;
+import javax.servlet.http.HttpServletRequest;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class MainController {
 
-	@Autowired
-	private UserDaoImpl userDao;
-	@Autowired
-	private StoreDaoImpl storeDao;
+    @Autowired
+    private UserDaoImpl userDao;
 
-	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
-	public ModelAndView defaultPage() throws SQLException {
-		
-		ModelAndView model = new ModelAndView();
-		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (!(auth instanceof AnonymousAuthenticationToken)) {
-			UserDetails userDetail = (UserDetails) auth.getPrincipal();
-			UserInfo user = userDao.getUser(userDetail.getUsername());
-			List<String> roles = new ArrayList<String>();
-			for (GrantedAuthority authority : auth.getAuthorities()) {
-				roles.add(authority.getAuthority());
-			}
+    @Autowired
+    private StoreDaoImpl storeDao;
 
-			model.addObject("email", user.getEmail());
-			model.setViewName("hello");
-			return model;
-		}
-		model.addObject("title", "Spring Security + Hibernate Example");
-		model.addObject("message", "This is default page!");
-		model.setViewName("hello");
-		return model;
+    @Autowired
+    private LocationsDao locationsDao;
 
-	}
+    @RequestMapping(value = {"/", "/welcome**"}, method = RequestMethod.GET)
+    public ModelAndView defaultPage() throws SQLException {
 
-	@RequestMapping(value = "/admin**", method = RequestMethod.GET)
-	public ModelAndView adminPage() {
+        ModelAndView model = new ModelAndView();
 
-		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Spring Security + Hibernate Example");
-		model.addObject("message", "This page is for ROLE_ADMIN only!");
-		model.setViewName("admin");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            UserDetails userDetail = (UserDetails) auth.getPrincipal();
+            UserInfo user = userDao.getUser(userDetail.getUsername());
+            List<String> roles = new ArrayList<String>();
+            for (GrantedAuthority authority : auth.getAuthorities()) {
+                roles.add(authority.getAuthority());
+            }
 
-		return model;
+            model.addObject("email", user.getEmail());
+            model.setViewName("hello");
+            return model;
+        }
 
-	}
+        model.addObject("message", "This is default page!");
+        model.setViewName("hello");
+        return model;
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView login(@RequestParam(value = "error", required = false) String error,
-			@RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) throws SQLException {
+    }
 
-		ModelAndView model = new ModelAndView();
-		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (!(auth instanceof AnonymousAuthenticationToken)) {
-			UserDetails userDetail = (UserDetails) auth.getPrincipal();
-			UserInfo user = userDao.getUser(userDetail.getUsername());
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ModelAndView login(@RequestParam(value = "error", required = false) String error,
+                              @RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) throws SQLException {
 
-			model.addObject("email", user.getEmail());
-			model.setViewName("hello");
-			return model;
-		}
-		
-		if (error != null) {
-			model.addObject("error", getErrorMessage(request, "SPRING_SECURITY_LAST_EXCEPTION"));
-		}
+        ModelAndView model = new ModelAndView();
 
-		if (logout != null) {
-			model.addObject("msg", "You've been logged out successfully.");
-		}
-		model.setViewName("signin");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            UserDetails userDetail = (UserDetails) auth.getPrincipal();
+            UserInfo user = userDao.getUser(userDetail.getUsername());
 
-		return model;
+            model.addObject("email", user.getEmail());
+            model.setViewName("hello");
+            return model;
+        }
 
-	}
+        if (error != null) {
+            model.addObject("error", getErrorMessage(request, "SPRING_SECURITY_LAST_EXCEPTION"));
+        }
 
-	// customize the error message
-	private String getErrorMessage(HttpServletRequest request, String key) {
+        if (logout != null) {
+            model.addObject("msg", "You've been logged out successfully.");
+        }
+        model.setViewName("signin");
 
-		Exception exception = (Exception) request.getSession().getAttribute(key);
+        return model;
 
-		String error = "";
-		if (exception instanceof BadCredentialsException) {
-			error = "Invalid username and password!";
-		} else if (exception instanceof LockedException) {
-			error = exception.getMessage();
-		} else {
-			error = exception.getLocalizedMessage();
-		}
+    }
 
-		return error;
-	}
+    // customize the error message
+    private String getErrorMessage(HttpServletRequest request, String key) {
 
-	// for 403 access denied page
-	@RequestMapping(value = "/403", method = RequestMethod.GET)
-	public ModelAndView accesssDenied() {
+        Exception exception = (Exception) request.getSession().getAttribute(key);
 
-		ModelAndView model = new ModelAndView();
+        String error = "";
+        if (exception instanceof BadCredentialsException) {
+            error = "Invalid username and password!";
+        } else if (exception instanceof LockedException) {
+            error = exception.getMessage();
+        } else {
+            error = exception.getLocalizedMessage();
+        }
 
-		// check if user is login
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (!(auth instanceof AnonymousAuthenticationToken)) {
-			UserDetails userDetail = (UserDetails) auth.getPrincipal();
-			System.out.println(userDetail);
+        return error;
+    }
 
-			model.addObject("username", userDetail.getUsername());
+    // for 403 access denied page
+    @RequestMapping(value = "/403", method = RequestMethod.GET)
+    public ModelAndView accesssDenied() {
 
-		}
+        ModelAndView model = new ModelAndView();
 
-		model.setViewName("403");
-		return model;
-	}
-	
-	@RequestMapping(value = "/signup", method = RequestMethod.GET)
-	public ModelAndView signup() throws SQLException {
+        // check if user is login
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            UserDetails userDetail = (UserDetails) auth.getPrincipal();
+            System.out.println(userDetail);
 
-		ModelAndView model = new ModelAndView();
+            model.addObject("username", userDetail.getUsername());
 
-		// check if user is login
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (!(auth instanceof AnonymousAuthenticationToken)) {
-			UserDetails userDetail = (UserDetails) auth.getPrincipal();
-			System.out.println(userDetail);
-			model.addObject("username", userDetail.getUsername());
-			model.addObject("role", userDetail.getAuthorities());
+        }
 
-			model.setViewName("hello");
-			return model;
-		}
+        model.setViewName("403");
+        return model;
+    }
 
-		model.addObject("cities", storeDao.getAllCities());
-		model.setViewName("signup");
-		return model;
+    @RequestMapping(value = "/signup", method = RequestMethod.GET)
+    public ModelAndView signup() throws SQLException {
 
-	}
-	
-	@ModelAttribute("newUser")
-	public UserInfo getUser() {
-		return new UserInfo();
-	}
-	
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register(@ModelAttribute("newUser") UserInfo newUser, ModelMap model) {
-		if(!newUser.getPassword().equals(newUser.getPasswordConf())){
-			model.addObject("errormsg", "Passwords are not the same!");
-			return "signup";
-		} else {
-			try {
-				userDao.insertUser(newUser);
-			} catch (SQLException e) {
-				e.printStackTrace();
-				model.addObject("errormsg", "Error registering user!");
-				return "signup";
-			}
-			model.addObject("message", "Thanks for registering. You have successfully registered user " + newUser.getUsername());
-			return "registerSuccess";
-		}
+        ModelAndView model = new ModelAndView();
 
-	}
+        // check if user is login
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            UserDetails userDetail = (UserDetails) auth.getPrincipal();
+            System.out.println(userDetail);
+            model.addObject("username", userDetail.getUsername());
+            model.addObject("role", userDetail.getAuthorities());
+
+            model.setViewName("hello");
+            return model;
+        }
+
+        model.addObject("cities", locationsDao.getAllCities());
+        model.setViewName("signup");
+        return model;
+
+    }
+
+    @ModelAttribute("newUser")
+    public UserInfo getUser() {
+        return new UserInfo();
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(@ModelAttribute("newUser") UserInfo newUser, ModelMap model) {
+        if (!newUser.getPassword().equals(newUser.getPasswordConf())) {
+            model.addObject("errormsg", "Passwords are not the same!");
+            return "signup";
+        } else {
+            try {
+                userDao.insertUser(newUser);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                model.addObject("errormsg", "Error registering user!");
+                return "signup";
+            }
+            model.addObject("message", "Thanks for registering. You have successfully registered user " + newUser.getUsername());
+            return "registerSuccess";
+        }
+
+    }
 
 }

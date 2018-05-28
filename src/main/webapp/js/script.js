@@ -21,14 +21,6 @@ $(document).ready(function() {
         }
     };
 
-    /*if($('#menuItems').text() != null || $('#menuItems').text() == ''){
-        var menuItem = JSON.parse($('#menuItems').html());
-        for(var i in menuItem){
-            itemAdder(menuItem[i].Item, menuItem[i].Qty, menuItem[i].Description,
-                menuItem[i].ItemCode, $('#orderList').text() == 'false');
-        }
-    }*/
-
     $('#addItem').click(function(){
         var refVal = $('#productRefInputModal').val();
         var refName = $('#productRefInputModal').find(':selected').data('name');

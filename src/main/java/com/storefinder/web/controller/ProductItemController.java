@@ -2,9 +2,9 @@ package com.storefinder.web.controller;
 
 
 import com.storefinder.store.constant.ProductStatus;
-import com.storefinder.store.dao.StoreDao;
 import com.storefinder.store.dao.impl.ProductItemDaoImpl;
 import com.storefinder.store.dao.impl.ProductRefDao;
+import com.storefinder.store.dao.impl.StoreDaoImpl;
 import com.storefinder.store.dto.ProductItemView;
 import com.storefinder.store.model.ProductItem;
 import com.storefinder.store.model.Store;
@@ -34,7 +34,7 @@ public class ProductItemController {
     private ProductRefDao productRefDao;
 
     @Autowired
-    private StoreDao storeDao;
+    private StoreDaoImpl storeDao;
 
     private static final String PRODUCT_LIST_PAGE = "productList";
     private static final String PRODUCT_EDIT_PAGE = "productEdit";

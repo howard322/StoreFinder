@@ -134,15 +134,4 @@ ALTER TABLE checkout_item
 ALTER TABLE checkout_item
   ADD CONSTRAINT fk_checkout_item_product_item FOREIGN KEY (item_id) REFERENCES product_item (id);
 
-CREATE TABLE IF NOT EXISTS orders (
-  order_id varchar(20) NOT NULL,
-  product_id BIGINT NOT NULL,
-  qty int(11) NOT NULL,
-  price decimal(5,2) NOT NULL,
-  PRIMARY KEY (order_id)
-);
-
-ALTER TABLE orders
-  ADD CONSTRAINT fk_prodorder_id FOREIGN KEY (product_id) REFERENCES product_item (id);
-
 
