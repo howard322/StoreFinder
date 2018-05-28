@@ -13,49 +13,49 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "user_roles", catalog = "storefinderdb", uniqueConstraints = @UniqueConstraint(columnNames = { "role", "username" }))
-public class UserRole{
+@Table(name = "user_roles", catalog = "storefinderdb", uniqueConstraints = @UniqueConstraint(columnNames = {"role", "username"}))
+public class UserRole {
 
-	private Long userRoleId;
-	private User user;
-	private String role;
+    private Long userRoleId;
+    private User user;
+    private String role;
 
-	public UserRole() {
-	}
+    public UserRole() {
+    }
 
-	public UserRole(User user, String role) {
-		this.user = user;
-		this.role = role;
-	}
+    public UserRole(User user, String role) {
+        this.user = user;
+        this.role = role;
+    }
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "user_role_id", unique = true, nullable = false)
-	public Long getUserRoleId() {
-		return this.userRoleId;
-	}
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "user_role_id", unique = true, nullable = false)
+    public Long getUserRoleId() {
+        return this.userRoleId;
+    }
 
-	public void setUserRoleId(Long userRoleId) {
-		this.userRoleId = userRoleId;
-	}
+    public void setUserRoleId(Long userRoleId) {
+        this.userRoleId = userRoleId;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "username", nullable = false)
-	public User getUser() {
-		return this.user;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "username", nullable = false)
+    public User getUser() {
+        return this.user;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	@Column(name = "role", nullable = false, length = 45)
-	public String getRole() {
-		return this.role;
-	}
+    @Column(name = "role", nullable = false, length = 45)
+    public String getRole() {
+        return this.role;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    public void setRole(String role) {
+        this.role = role;
+    }
 
 }
