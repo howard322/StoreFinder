@@ -92,7 +92,7 @@ public class CheckoutController {
 
         checkoutDao.save(checkout);
 
-        mav.addObject("successMessage", "Successfully checked-out items!");
+        mav.addObject("message", "Successfully checked-out items!");
 
         return mav;
     }

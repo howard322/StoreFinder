@@ -28,11 +28,17 @@
             <div class="col-sm-3">
                 <div class="jumbotron mp">
                     <h4>Grocery!</h4>
-                    <p>...</p>
+                    <c:choose>
+                        <c:when test="${not empty message}">
+                            <div class="green" style="font-size: 14px">${message}</div>
+                        </c:when>
+                        <c:otherwise><p>...</p></c:otherwise>
+                    </c:choose>
                     <p><a class="btn btn-primary btn-lg" href="shop" role="button">Learn more</a></p>
                 </div>
             </div>
         </sec:authorize>
+        <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_SELLER')">
         <div class="col-sm-6">
             <div class="jumbotron mp">
                 <h4>Products</h4>
@@ -47,6 +53,7 @@
                 </p>
             </div>
         </div>
+        </sec:authorize>
     </div>
 </div>
 <%@ include file="/WEB-INF/includes/footer.jsp" %>
