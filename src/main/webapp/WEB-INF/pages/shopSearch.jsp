@@ -91,6 +91,7 @@
                                     <div class="modal-footer">
                                         <form:form id="checkout-form" action="checkout" modelAttribute="preCheckoutForm">
                                             <form:input path="total" value="${productStoreTotal.total}" type="hidden"/>
+                                            <form:input path="storeId" value="${productStoreTotal.storeId}" type="hidden"/>
                                             <c:forEach var="item" items="${productStoreTotal.selectedProducts}" varStatus="i">
                                                 <form:input path="checkoutItems[${i.index}].itemId" value="${item.itemId}" type="hidden"/>
                                                 <form:input path="checkoutItems[${i.index}].qty" value="${item.qty}" type="hidden"/>

@@ -5,9 +5,19 @@ import java.util.List;
 
 public class PreCheckoutForm {
 
+    private Long storeId;
+
     private Float total;
 
     private List<CheckoutItemForm> checkoutItems;
+
+    public Long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
+    }
 
     public Float getTotal() {
         return total;

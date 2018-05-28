@@ -89,6 +89,12 @@
                         </div>
                     </div>
                     <div class="form-group row col-sm-8">
+                        <form:input path="total" value="${preCheckoutForm.total}" type="hidden"/>
+                        <form:input path="storeId" value="${preCheckoutForm.storeId}" type="hidden"/>
+                        <c:forEach var="item" items="${preCheckoutForm.checkoutItems}" varStatus="i">
+                            <form:input path="checkoutItems[${i.index}].itemId" value="${item.itemId}" type="hidden"/>
+                            <form:input path="checkoutItems[${i.index}].qty" value="${item.qty}" type="hidden"/>
+                        </c:forEach>
                         <input type="submit" class="btn btn-success pull-right" value="Place Order Now" onclick="return confirm('Confirm order?')"/>
                     </div>
                 </form:form>

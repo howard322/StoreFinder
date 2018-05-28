@@ -30,6 +30,8 @@ public class CheckoutForm {
 
     private Float total;
 
+    private Long storeId;
+
     public List<CheckoutItemForm> checkoutItems;
 
     public String getName() {
@@ -118,6 +120,14 @@ public class CheckoutForm {
 
     public void setTotal(Float total) {
         this.total = total;
+    }
+
+    public Long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
     }
 
     public List<CheckoutItemForm> getCheckoutItems() {

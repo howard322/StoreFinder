@@ -70,6 +70,10 @@ public class Checkout {
     @Column(name = "total")
     private Float total;
 
+    @ManyToOne
+    @JoinColumn(name = "store_id", referencedColumnName = "store_id")
+    private Store store;
+
     @OneToMany(mappedBy = "checkout", cascade = CascadeType.ALL)
     private List<CheckoutItem> checkoutItems = new LinkedList<CheckoutItem>();
 
@@ -183,6 +187,14 @@ public class Checkout {
 
     public void setTotal(Float total) {
         this.total = total;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
     }
 
     public List<CheckoutItem> getCheckoutItems() {

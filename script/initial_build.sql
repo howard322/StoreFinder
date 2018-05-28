@@ -96,7 +96,7 @@ ALTER TABLE product_item
 
 CREATE TABLE IF NOT EXISTS checkout (
   id BIGINT NOT NULL AUTO_INCREMENT,
-  createdDate DATETIME NOT NULL,
+  created_date DATETIME NOT NULL,
   buyer VARCHAR(255) NOT NULL,
   name VARCHAR(255),
   address VARCHAR(500),
@@ -109,11 +109,15 @@ CREATE TABLE IF NOT EXISTS checkout (
   card_expiry VARCHAR(5),
   card_cvv VARCHAR(3),
   total FLOAT NOT NULL,
+  store_id BIGINT,
   PRIMARY KEY (id)
 );
 
 ALTER TABLE checkout
   ADD CONSTRAINT fk_checkout_city FOREIGN KEY (city_id) REFERENCES locations (loc_id);
+
+ALTER TABLE checkout
+  ADD CONSTRAINT fk_checkout_store FOREIGN KEY (store_id) REFERENCES store (store_id);
 
 CREATE TABLE IF NOT EXISTS checkout_item (
   id BIGINT NOT NULL AUTO_INCREMENT,
