@@ -32,7 +32,7 @@
                             </c:if>
 
                             <div class="form-group">
-                                <label for="username" class="col-lg-3 control-label">User
+                                <label for="userNameInput" class="col-lg-3 control-label">User
                                     Name</label>
                                 <div class="col-lg-9">
                                     <input name="username" type="text" class="form-control"
@@ -41,7 +41,7 @@
                             </div>
                             <br><br>
                             <div class="form-group">
-                                <label for="password" class="col-lg-3 control-label">Password</label>
+                                <label for="passwordInput" class="col-lg-3 control-label">Password</label>
                                 <div class="col-lg-9">
                                     <input name="password" type="password" class="form-control"
                                            id="passwordInput" placeholder="Password"/>
@@ -50,9 +50,7 @@
 
                             <div class="col-lg-9 col-lg-offset-3">
                                 <br>
-                                <input type="hidden" name="${_csrf.parameterName}"
-                                       value="${_csrf.token}"/>
-                                <button class="btn btn-default">Cancel</button>
+                                <button onclick="window.location.href='/'" class="btn btn-default">Cancel</button>
                                 <button name="submit" type="submit" class="btn btn-primary">Login</button>
                             </div>
 

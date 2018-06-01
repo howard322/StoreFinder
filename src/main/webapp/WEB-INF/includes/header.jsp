@@ -12,6 +12,7 @@
     <script src="<c:url value="/js/jquery/jquery.tabletojson.min.js" />"></script>
     <script src="<c:url value="/js/datetimepicker/jquery.datetimepicker.full.min.js" />"></script>
     <script src="<c:url value="/js/script.js" />"></script>
+    <script src="<c:url value="/bootstrap/js/bootstrap.min.js" />"></script>
     <style>
         body {
             height: 100%;

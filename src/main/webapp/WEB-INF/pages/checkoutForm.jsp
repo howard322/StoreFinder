@@ -88,14 +88,57 @@
                                         placeholder="CVV" disabled="false" maxlength="3"/>
                         </div>
                     </div>
-                    <div class="form-group row col-sm-8">
+                    <div class="form-group row col-sm-10">
                         <form:input path="total" value="${preCheckoutForm.total}" type="hidden"/>
                         <form:input path="storeId" value="${preCheckoutForm.storeId}" type="hidden"/>
                         <c:forEach var="item" items="${preCheckoutForm.checkoutItems}" varStatus="i">
                             <form:input path="checkoutItems[${i.index}].itemId" value="${item.itemId}" type="hidden"/>
                             <form:input path="checkoutItems[${i.index}].qty" value="${item.qty}" type="hidden"/>
                         </c:forEach>
-                        <input type="submit" class="btn btn-success pull-right" value="Place Order Now" onclick="return confirm('Confirm order?')"/>
+                        <div class="pull-right btn-group">
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewItems">View Items</button>
+                            <input type="submit" class="btn btn-success" style="margin-left: 10px" value="Place Order Now" onclick="return confirm('Confirm order?')"/>
+                            <div id="viewItems" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Checkout Items (${checkoutItemsSummary.storeName})</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4><b>Total:</b> ${checkoutItemsSummary.total}</h4>
+                                            <table class="table table-striped table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th style="width: 30%"></th>
+                                                    <th style="width: 20%">Product</th>
+                                                    <th style="width: 20%">Details</th>
+                                                    <th style="width: 10%">Price</th>
+                                                    <th style="width: 10%">Quantity</th>
+                                                    <th style="width: 10%">Subtotal</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <c:forEach items="${checkoutItemsSummary.selectedProducts}" var="selectProduct">
+                                                    <tr>
+                                                        <td><img src="data:image/jpeg;base64,${selectProduct.content}" width="70" height="70"></td>
+                                                        <td>${selectProduct.productName}</td>
+                                                        <td>${selectProduct.productDetails}</td>
+                                                        <td>${selectProduct.price}</td>
+                                                        <td>${selectProduct.qty}</td>
+                                                        <td><b>${selectProduct.totalPrice}<b></b></td>
+                                                    </tr>
+                                                </c:forEach>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form:form>
             </fieldset>

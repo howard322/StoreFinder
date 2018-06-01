@@ -8,6 +8,8 @@ import com.storefinder.store.dao.impl.StoreDaoImpl;
 import com.storefinder.store.dto.CheckoutForm;
 import com.storefinder.store.dto.CheckoutItemForm;
 import com.storefinder.store.dto.PreCheckoutForm;
+import com.storefinder.store.dto.ProductSearchStoreTotalView;
+import com.storefinder.store.dto.ProductSearchStoreView;
 import com.storefinder.store.model.Checkout;
 import com.storefinder.store.model.CheckoutItem;
 import com.storefinder.store.model.ProductItem;
@@ -49,6 +51,17 @@ public class CheckoutController {
         mav.addObject("preCheckoutForm", preCheckoutForm);
         mav.addObject("checkoutForm", new CheckoutForm());
         mav.addObject("locations", locationsDao.getLocationOpts());
+
+
+        List<ProductSearchStoreView> checkoutItems = new ArrayList<ProductSearchStoreView>();
+
+        for (CheckoutItemForm checkoutItem : preCheckoutForm.getCheckoutItems()) {
+            ProductItem item = productItemDao.get(checkoutItem.getItemId());
+            checkoutItems.add(new ProductSearchStoreView(item, checkoutItem.getQty()));
+        }
+
+        mav.addObject("checkoutItemsSummary", new ProductSearchStoreTotalView(
+                storeDao.get(preCheckoutForm.getStoreId()), checkoutItems));
 
         return mav;
     }
