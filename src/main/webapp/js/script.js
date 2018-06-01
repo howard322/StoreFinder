@@ -93,23 +93,6 @@ $(document).ready(function() {
         });
     });
 
-    $('#shop').click(function(){
-        var table = $('#entries').tableToJSON();
-        console.log(table);
-        console.log(JSON.stringify(table));
-        var tableStr = encodeURI(JSON.stringify(table));
-        window.open('shop?items='+tableStr, "_self");
-    });
-
-    $('#customerCheckout').click(function(){
-        var table = $('#menuItems').text();
-        table = JSON.parse(table);
-        console.log(table);
-        console.log(JSON.stringify(table));
-        var tableStr = encodeURI(JSON.stringify(table));
-        window.open('checkout?items='+tableStr, "_self");
-    });
-
     $('input[type=radio][name="paymentType"]').click(function(){
         var result = document.querySelector('input[name="paymentType"]:checked').value;
         if(result === 'CREDIT_CARD'){
@@ -125,35 +108,5 @@ $(document).ready(function() {
     });
 
     $("#datepicker").datetimepicker();
-
-    $('#productCheckout').click(function(){
-
-        if($('input[name=storeoption]:checked').val() != null){
-            var colIndex = $('input[name=storeoption]:checked').closest('td').index() + 1;
-            //$('table[name=productAvailability] tr td:nth-child('+colIndex+')').css("color", "#F00");
-
-            var orderList = $('#menuItems').text();
-            var ordersJson = JSON.parse(orderList);
-
-            $('table[name=productAvailability] tr td:nth-child('+colIndex+')').each(function(){
-                //alert($(this).parent().siblings(":first").text());
-                var val = $(this).closest('tr').children('td:first').text();
-                var index = ordersJson.findIndex(function(item, i){
-                    return item.Item === val;
-                });
-                var price = $(this).html();
-
-                if(index != null && index != -1){
-                    ordersJson[index]['Price'] = price;
-                }
-            });
-            console.log(ordersJson);
-            var tableStr = encodeURI(JSON.stringify(ordersJson));
-            //alert(tableStr);
-            window.open('cart?items='+tableStr, "_self");
-        } else {
-            alert("Please choose which store to order from.");
-        }
-    });
 
 });

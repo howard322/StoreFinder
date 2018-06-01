@@ -8,6 +8,7 @@ import com.storefinder.store.model.ProductItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +30,7 @@ public class ProductManagementController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/product-management", method = RequestMethod.GET)
-    public ModelAndView loadProductManagementPage() {
+    public ModelAndView loadProductManagementPage(String errorMessage) {
         List<ProductItemView> productItems = productItemDao.findAllProducts();
 
         List<ProductItemView> newProducts = new LinkedList<ProductItemView>();
@@ -56,6 +57,10 @@ public class ProductManagementController {
         mav.addObject("approvedProducts", approvedProducts);
         mav.addObject("rejectedProducts", rejectedProducts);
 
+        if (!StringUtils.isEmpty(errorMessage)) {
+            mav.addObject("errorMessage", errorMessage);
+        }
+
         return mav;
     }
 
@@ -64,10 +69,16 @@ public class ProductManagementController {
     public ModelAndView approveProduct(@RequestParam Long id) {
 
         ProductItem productItem = productItemDao.get(id);
+
+        if (productItemDao.checkDuplicateProductType(productItem.getUsername(), productItem.getProductRefCode())) {
+            return loadProductManagementPage(String.format("An item with type %s is already approved for store %s",
+                    productItem.getProductRef().getName(), productItem.getUsername()));
+        }
+
         productItem.setStatus(ProductStatus.APPROVED);
         productItemDao.save(productItem);
 
-        return loadProductManagementPage();
+        return loadProductManagementPage(null);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -78,6 +89,6 @@ public class ProductManagementController {
         productItem.setStatus(ProductStatus.REJECTED);
         productItemDao.save(productItem);
 
-        return loadProductManagementPage();
+        return loadProductManagementPage(null);
     }
 }

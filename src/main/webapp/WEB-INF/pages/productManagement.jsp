@@ -9,6 +9,9 @@
     <div class="panel-heading">
         <h1 class="panel-title">Product Management</h1>
     </div>
+    <c:if test="${not empty errorMessage}">
+        <div class="error well-sm" style="font-size: 12px">${errorMessage}</div>
+    </c:if>
     <div class="panel-body" style="margin-left: 10px">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#newProducts" >New Products</a></li>

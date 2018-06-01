@@ -6,7 +6,6 @@
     <title>Store Finder PH</title>
     <link href="assets/css/bootstrap-united.css" rel="stylesheet"/>
     <link href="/js/datetimepicker/jquery.datetimepicker.min.css" rel="stylesheet"/>
-    <link href="<c:url value="/datepicker/css/datepicker.css" />" rel="stylesheet"/>
     <script src="<c:url value="/js/jquery/jquery.min.js" />"></script>
     <script src="<c:url value="/js/jquery/jquery-3.2.1.js" />"></script>
     <script src="<c:url value="/js/jquery/jquery.tabletojson.min.js" />"></script>

@@ -21,19 +21,19 @@
                     <div class="form-group row">
                         <label for="nameInput" class="col-sm-2">Name</label>
                         <div class="col-sm-8">
-                            <form:input path="name" id="nameInput" type="text" class="form-control" maxlength="255"/>
+                            <form:input path="name" id="nameInput" type="text" class="form-control" maxlength="255" required="required"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="addressInput" class="col-sm-2">Address</label>
                         <div class="col-sm-8">
-                            <form:input path="address" id="addressInput" type="text" class="form-control" maxlength="255"/>
+                            <form:input path="address" id="addressInput" type="text" class="form-control" maxlength="255" required="required"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="cityInput" class="col-sm-2">City</label>
                         <div class="col-sm-8">
-                            <form:select cssClass="form-control" path="cityId" id="cityInput">
+                            <form:select cssClass="form-control" path="cityId" id="cityInput" required="required">
                                 <form:options items="${locations}" />
                             </form:select>
                         </div>
@@ -41,13 +41,13 @@
                     <div class="form-group row">
                         <label for="phoneInput" class="col-sm-2">Phone number</label>
                         <div class="col-sm-8">
-                            <form:input path="phoneNumber" id="phoneInput" type="text" class="form-control" maxlength="20"/>
+                            <form:input path="phoneNumber" id="phoneInput" type="text" class="form-control" maxlength="20" required="required"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="acquireMethod" class="col-sm-2">Acquisition Method</label>
                         <div class="col-sm-8">
-                            <label class="radio-inline"><form:radiobutton path="acquireMethod" name="acquireMethod" value="DELIVERY" selected="true"/>Delivery</label>
+                            <label class="radio-inline"><form:radiobutton path="acquireMethod" name="acquireMethod" value="DELIVERY" required="required"/>Delivery</label>
                             <label class="radio-inline"><form:radiobutton path="acquireMethod" name="acquireMethod" value="STORE_PICKUP"/>Store Pick-up</label>
                         </div>
                     </div>
