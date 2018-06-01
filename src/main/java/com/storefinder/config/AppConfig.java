@@ -2,10 +2,12 @@ package com.storefinder.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
@@ -26,6 +28,9 @@ import java.util.Properties;
 @EnableTransactionManagement
 @Import({ SecurityConfig.class })
 public class AppConfig extends WebMvcConfigurerAdapter {
+
+    @Autowired
+    private Environment environment;
 
     @Bean
     public SessionFactory sessionFactory() {
@@ -60,8 +65,13 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName("com.mysql.jdbc.Driver");
         ds.setUrl("jdbc:mysql://localhost:3306/storefinderdb");
-        ds.setUsername("test");
-        ds.setPassword("test");
+
+        if (environment.getProperty("env").equals("test")) {
+            ds.setUsername("test");
+            ds.setPassword("test");
+        } else {
+            ds.setUsername("root");
+        }
         return ds;
     }
 
