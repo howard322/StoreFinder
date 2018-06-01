@@ -1,10 +1,7 @@
 package com.storefinder.users.service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import com.storefinder.users.dao.UserDao;
+import com.storefinder.users.model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,8 +12,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.storefinder.users.dao.UserDao;
-import com.storefinder.users.model.UserRole;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service("userDetailsService")
 public class MyUserDetailsService implements UserDetailsService {
@@ -27,12 +26,12 @@ public class MyUserDetailsService implements UserDetailsService {
 	@Transactional(readOnly=true)
 	@Override
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-	
+
 		com.storefinder.users.model.User user = userDao.findByUserName(username);
 		List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
 
 		return buildUserForAuthentication(user, authorities);
-		
+
 	}
 
 	// Converts com.mkyong.users.model.User user to
