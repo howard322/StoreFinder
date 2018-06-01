@@ -66,7 +66,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         ds.setDriverClassName("com.mysql.jdbc.Driver");
         ds.setUrl("jdbc:mysql://localhost:3306/storefinderdb");
 
-        if (environment.getProperty("env").equals("test")) {
+        if (environment.getProperty("env") != null && environment.getProperty("env").equals("test")) {
             ds.setUsername("test");
             ds.setPassword("test");
         } else {
