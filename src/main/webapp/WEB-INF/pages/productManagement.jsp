@@ -17,6 +17,7 @@
             <li class="active"><a data-toggle="tab" href="#newProducts" >New Products</a></li>
             <li><a data-toggle="tab" href="#approvedProducts">Approved Products</a></li>
             <li><a data-toggle="tab" href="#rejectedProducts">Rejected Products</a></li>
+            <li><a data-toggle="tab" href="#expiredProducts">Expired Products</a></li>
         </ul>
 
         <div class="tab-content">
@@ -66,6 +67,13 @@
                                     <h5>Type: ${product.type}</h5>
                                     <h5>Price: ${product.price}</h5>
                                     <h5>Store: ${product.store}</h5>
+                                    <div class="btn-group">
+                                        <form:form action="product-expire" method="post" cssStyle="float:left; width:auto">
+                                            <input type="hidden" value="${product.id}" name="id"/>
+                                            <input type="submit" class="btn btn-danger btn-xs"
+                                                   onclick="return confirm('Are you sure you want to expire this product?')" value="Expire"/>
+                                        </form:form>
+                                    </div>
                                 </div>
                             </c:forEach>
                         </div>
@@ -80,6 +88,26 @@
                     <c:otherwise>
                         <div class="row" style="margin-top: 10px">
                             <c:forEach items="${rejectedProducts}" var="product">
+                                <div class="col-md-2 text-center" style="margin-left: 10px">
+                                    <img src="data:image/jpeg;base64,${product.content}" width="100" height="100" alt="${product.name}">
+                                    <h5><b>${product.name}</b></h5>
+                                    <h5>Type: ${product.type}</h5>
+                                    <h5>Price: ${product.price}</h5>
+                                    <h5>Store: ${product.store}</h5>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+            <div id="expiredProducts" class="tab-pane fade">
+                <c:choose>
+                    <c:when test="${empty expiredProducts}">
+                        <h4 class="text-center">No Expired Products</h4>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="row" style="margin-top: 10px">
+                            <c:forEach items="${expiredProducts}" var="product">
                                 <div class="col-md-2 text-center" style="margin-left: 10px">
                                     <img src="data:image/jpeg;base64,${product.content}" width="100" height="100" alt="${product.name}">
                                     <h5><b>${product.name}</b></h5>

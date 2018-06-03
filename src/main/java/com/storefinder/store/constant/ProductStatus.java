@@ -5,5 +5,6 @@ public enum ProductStatus {
 
     NEW,
     APPROVED,
-    REJECTED
+    REJECTED,
+    EXPIRED
 }

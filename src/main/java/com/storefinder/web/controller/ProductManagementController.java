@@ -36,6 +36,7 @@ public class ProductManagementController {
         List<ProductItemView> newProducts = new LinkedList<ProductItemView>();
         List<ProductItemView> approvedProducts = new LinkedList<ProductItemView>();
         List<ProductItemView> rejectedProducts = new LinkedList<ProductItemView>();
+        List<ProductItemView> expiredProducts = new LinkedList<ProductItemView>();
 
         for (ProductItemView product : productItems) {
             switch (product.getStatus()) {
@@ -48,6 +49,9 @@ public class ProductManagementController {
                 case REJECTED:
                     rejectedProducts.add(product);
                     break;
+                case EXPIRED:
+                    expiredProducts.add(product);
+                    break;
                 default:
             }
         }
@@ -56,6 +60,7 @@ public class ProductManagementController {
         mav.addObject("newProducts", newProducts);
         mav.addObject("approvedProducts", approvedProducts);
         mav.addObject("rejectedProducts", rejectedProducts);
+        mav.addObject("expiredProducts", expiredProducts);
 
         if (!StringUtils.isEmpty(errorMessage)) {
             mav.addObject("errorMessage", errorMessage);
@@ -87,6 +92,17 @@ public class ProductManagementController {
 
         ProductItem productItem = productItemDao.get(id);
         productItem.setStatus(ProductStatus.REJECTED);
+        productItemDao.save(productItem);
+
+        return loadProductManagementPage(null);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/product-expire", method = RequestMethod.POST)
+    public ModelAndView expireProduct(@RequestParam Long id) {
+
+        ProductItem productItem = productItemDao.get(id);
+        productItem.setStatus(ProductStatus.EXPIRED);
         productItemDao.save(productItem);
 
         return loadProductManagementPage(null);

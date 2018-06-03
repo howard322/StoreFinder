@@ -40,7 +40,7 @@ public class ProductItemController {
     private static final String PRODUCT_EDIT_PAGE = "productEdit";
 
 
-    @PreAuthorize("hasRole('ROLE_SELLER')")
+    @PreAuthorize("hasRole('ROLE_SELLER')") // prevents access to unauthorized page if has different role
     @RequestMapping(value = "/product-list", method = RequestMethod.GET)
     public ModelAndView loadTest() {
         String username = SecurityUtil.getLoggedInUsername();

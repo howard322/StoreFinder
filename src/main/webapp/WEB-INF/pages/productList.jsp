@@ -28,8 +28,13 @@
                                 <h5>Status: ${product.status}</h5>
                             <div class="btn-group">
                                 <form:form action="product-delete" method="post">
-                                    <a class="btn btn-primary btn-xs" href="/product-update?id=${product.id}" role="button">Edit</a>
-                                    <c:if test="${product.status != 'APPROVED'}">
+                                    <c:if test="${product.status == 'NEW' || product.status == 'APPROVED'}">
+                                        <a class="btn btn-primary btn-xs" href="/product-update?id=${product.id}" role="button">Edit</a>
+                                    </c:if>
+                                    <c:if test="${product.status == 'EXPIRED' || product.status == 'REJECTED'}">
+                                        <a class="btn btn-primary btn-xs" disabled="true" href="/product-update?id=${product.id}" role="button">Edit</a>
+                                    </c:if>
+                                    <c:if test="${product.status == 'NEW'}">
                                         <input type="hidden" value="${product.id}" name="id"/>
                                         <input type="submit" class="btn btn-danger btn-xs"
                                                        onclick="return confirm('Are you sure you want to delete?')" value="Delete"/>

@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 
 public class ImageUtil {
 
+    // converts byte array image to base 64 encoded String
     public static String getImageAsString(byte[] content) {
 
         try {

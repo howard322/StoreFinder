@@ -59,6 +59,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return prop;
     }
 
+    // DB credentials here
     @Bean(name = "dataSource")
     public BasicDataSource dataSource() {
 
@@ -84,6 +85,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return txManager;
     }
 
+    // configuration for max size of upload image
     @Bean
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();

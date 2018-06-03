@@ -1,3 +1,5 @@
+// custom java scripts
+
 $(document).ready(function() {
 
     var itemAdder = function (itemName, quantity, itemDesc, itemCode, removeDelete) {
