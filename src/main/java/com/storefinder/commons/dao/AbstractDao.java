@@ -12,6 +12,7 @@ import java.util.List;
 @Transactional
 public abstract class AbstractDao<T, I extends Serializable> {
 
+    //generic methods for DB access to be used by the dao
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -40,7 +41,12 @@ public abstract class AbstractDao<T, I extends Serializable> {
     }
 
     public List<T> getAll() {
-        return (List<T>) getCurrentSession().createQuery(String.format("from %s item", getEntityName())).list();
+        return (List<T>) getCurrentSession().createQuery(String.format("from %s item", getEntityName())).list(); //casting
+        //getCurrentSession - will get the current content of the DB at the time of login
+        //getEntityName - will get the model of the DB (fields)
+        //getAssignClass -
+        //T - Java generics - represents the model/entity
+        //I - Data type of the ID of the field like loc_id
     }
 
 }

@@ -36,7 +36,7 @@ public class ProductItemDaoImpl extends AbstractDao<ProductItem, Long> {
 
     public List<ProductItemView> findProductsByUsername(String username) {
         Query query = getCurrentSession().createQuery("from ProductItem item where item.username = :username")
-                .setString("username", username);
+                .setString("username", username); //username of the seller to find which seller is selling the product
 
         List<ProductItem> items = (List<ProductItem>) query.list();
         List<ProductItemView> results = new ArrayList<ProductItemView>();

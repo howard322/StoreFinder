@@ -12,23 +12,23 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class LocationsDao extends AbstractDao<Locations, Long> {
+public class LocationsDao extends AbstractDao<Locations, Long> { //to get the generic method ABract Dao
 
     public Map<Long, String> getLocationOpts() {
         Map<Long, String> returnVal = new LinkedHashMap<Long, String>();
 
-        for (Locations loc: getAll()) {
+        for (Locations loc: getAll()) { //getAll is a method from AbstractDao
             returnVal.put(loc.getLocId(), loc.getName());
         }
 
-        return returnVal;
+        return returnVal; //Map<Long, String>
     }
 
     public List<City> getAllCities() {
         String query = String.format("from %s where locId = parentLoc order by name asc", getEntityName());
 
         List<Locations> locations = (List<Locations>) getCurrentSession().createQuery(query).list();
-
+//getCurrentSession - needed every selection in the DB
         List<City> cities = new LinkedList<City>();
         for (Locations city : locations) {
             cities.add(new City(city.getLocId(), city.getName()));
